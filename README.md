@@ -58,3 +58,58 @@ var minhaVariavel, minhaVariavel2 : integer;
 var nome : string;
 var saldo : real;
 ```
+
+### Procedimentos
+
+É possível incluir um ou nenhum PROCEDIMENTO. Eles devem ser posicionados após as VARIÁVEIS e antes do BLOCO principal do programa. Um PROCEDIMENTO começa com a palavra `procedure`, seguida do identificador e dos PARÂMETROS caso houver PARÂMETROS. Após isso, há um ponto e vírgula `;` em seguida, um BLOCO contendo comandos.
+
+Sua estrutura é:
+
+```
+procedure ident PARAMETROS ;
+begin
+    COMANDOS
+end;
+
+```
+
+Exemplos:
+
+```
+procedure mostrarMensagem;
+begin
+    print "Olá, mundo!";
+end;
+```
+
+```
+procedure soma(a, b: integer);
+begin
+    print a + b;
+end;
+```
+
+
+### Parametros
+Um PROCEDIMENTO pode ou não receber PARÂMETROS. Caso receba, eles devem ser declarados entre parênteses `()`, seguidos do tipo. É possível declarar múltiplos parâmetros separando-os por vírgula `,`.
+
+Sua estrutura é:
+
+```
+procedure ident ( LISTAVARIAVEIS : TIPO );
+begin
+    COMANDOS
+end;
+```
+
+Exemplos:
+
+```
+procedure exibirNome(nome: string);
+begin
+    print nome;
+end;
+```
+
+### Comandos
+Comandos são os comandos, read, if, for, while, que são comandos que utilizam uma estrutura alguns não são obrigatoriamente utilizar o BLOCO após sua inicialização...
