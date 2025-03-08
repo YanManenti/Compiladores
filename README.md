@@ -58,3 +58,100 @@ var minhaVariavel, minhaVariavel2 : integer;
 var nome : string;
 var saldo : real;
 ```
+
+### Blocos
+
+Todo bloco se inicia com begin e termina com end.
+
+```
+begin
+  COMANDOS
+end
+```
+
+### Comandos
+Em meio aos blocos eu adiciono comandos, e existem alguns tipos de comandos que posso adicionar ao bloco.
+
+Entrada de dados:
+```
+ident := expressão
+
+
+Exemplo:
+
+mediaNotas := (nota1 + nota2 + nota3) / 3
+```
+
+Chamada de procedimentos:
+```
+ident(parâmetros)
+
+
+Exemplo:
+
+calculoMedia(nota1, nota2, nota3: real)
+```
+
+Escrever:
+```
+print{ITEMSAIDA REPITEM}
+
+
+Exemplo:
+
+print{'Olá mundo!'}
+```
+
+Estruturas relacionais:
+```
+if EXPRELACIONAL then BLOCO
+
+ou
+
+if EXPRELACIONAL then BLOCO else BLOCO
+
+
+Exemplo:
+if idade >= 18 then begin
+  print{'Maior de idade'}
+end else begin
+  print{'Menor de idade'}
+end
+```
+
+Estruturas de repetição for:
+```
+for ident := EXPRESSAO to EXPRESSAO do BLOCO
+
+
+Exemplo:
+
+for i := 0 to 10 do begin
+  i := i + 1;
+  print{i}
+end
+```
+
+Estruturas de repetição while:
+```
+while EXPRELACIONAL do BLOCO
+
+
+Exemplo:
+
+while repetir = 'S' do begin
+  repetir := 'N'
+end
+```
+
+Leitura de dados.
+```
+read(ident)
+
+
+Exemplo:
+
+var nome : string
+print{'Informe o seu nome'}
+read(nome)
+```
