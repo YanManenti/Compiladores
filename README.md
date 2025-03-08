@@ -113,3 +113,5 @@ end;
 
 ### Comandos
 Comandos são os comandos, read, if, for, while, que são comandos que utilizam uma estrutura alguns não são obrigatoriamente utilizar o BLOCO após sua inicialização...
+
+
