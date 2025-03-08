@@ -89,7 +89,11 @@ ident(parâmetros)
 
 Exemplo:
 
-calculoMedia(nota1, nota2, nota3: real)
+var nota1, nota2, nota3  : real
+nota1 := 8.3
+nota2 := 5.2
+nota3 := 6.7
+calculoMedia(nota1, nota2, nota3)
 ```
 
 Escrever:
