@@ -124,8 +124,25 @@ Exemplos:
 ### ListaParâmetros
 LISTAPARAMETROS começa com abre parêntesis `(,` pode ser um, nenhum, ou múltiplos **ident**, **nint**, **nreal**, **vstring** ou **literal** divididos por vírgula `,` e termina com fecha parêntesis `)`.
 
-### Expressão
+### Fator
+São elementos dentro de uma expressão. Representam os valores, que nos quais podem ser um `ident`, `nint`, `nreal`, `literal`, `vstring`
 
+### Termo
+São fatores e operações que compõem a expressão
+
+Exemplo:
+```
+nChocolates / 2
+```
+
+### Expressão
+É uma combinação de valores, variáveis, operadores e chamadas procedimentos. Podem ser usadas para realizar cálculos, tomar decisões e manipular dados. A expressão usa termos
+
+Exemplo:
+
+```
+(nChocolateBranco + nChocolatePreto) / nPessoas
+```
 
 
 ### ExpRelacional
