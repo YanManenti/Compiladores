@@ -124,6 +124,10 @@ Exemplos:
 ### ListaParâmetros
 LISTAPARAMETROS começa com abre parêntesis `(,` pode ser um, nenhum, ou múltiplos **ident**, **nint**, **nreal**, **vstring** ou **literal** divididos por vírgula `,` e termina com fecha parêntesis `)`.
 
+### Expressão
+
+
+
 ### ExpRelacional
 É possivel criar uma EXPRELACIONAL, começa e termina com uma EXPRESSÃO, entre elas está uma operação relacional, podem ser elas `=`, `<>`, `>`, `<`, `>=` e `<=`, representando igual, diferente, maior que, menor que, maior ou igual e menor ou igual em ordem.
 
@@ -180,7 +184,7 @@ Exemplo:
 print{'Olá mundo!'}
 ```
 
-Estruturas relacionais, sintaxe:
+Estruturas de condição, sintaxe:
 
 ```
 if EXPRELACIONAL then BLOCO
