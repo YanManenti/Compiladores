@@ -127,3 +127,140 @@ LISTAPARAMETROS começa com abre parêntesis `(,` pode ser um, nenhum, ou múlti
 ### ExpRelacional
 É possivel criar uma EXPRELACIONAL, começa e termina com uma EXPRESSÃO, entre elas está uma operação relacional, podem ser elas `=`, `<>`, `>`, `<`, `>=` e `<=`, representando igual, diferente, maior que, menor que, maior ou igual e menor ou igual em ordem.
 
+### Fator
+São elementos dentro de uma expressão. Representam os valores, que nos quais podem ser um `ident`, `nint`, `nreal`, `literal`, `vstring`
+
+### Termo
+São fatores e operações que compõem a expressão
+
+Exemplo:
+```
+nChocolates / 2
+```
+
+### Expressão
+É uma combinação de valores, variáveis, operadores e chamadas procedimentos. Podem ser usadas para realizar cálculos, tomar decisões e manipular dados. A expressão usa termos
+
+Exemplo:
+
+```
+(nChocolateBranco + nChocolatePreto) / nPessoas
+```
+
+
+### ExpRelacional
+É possivel criar uma EXPRELACIONAL, começa e termina com uma EXPRESSÃO, entre elas está uma operação relacional, podem ser elas `=`, `<>`, `>`, `<`, `>=` e `<=`, representando igual, diferente, maior que, menor que, maior ou igual e menor ou igual em ordem.
+
+### Blocos
+
+Todo bloco se inicia com begin e termina com end.
+
+```
+begin
+  COMANDOS
+end
+```
+
+### Comandos
+Em meio aos blocos eu adiciono comandos, e existem alguns tipos de comandos que posso adicionar ao bloco.
+
+Entrada de dados, sintaxe:
+
+```
+ident := expressão
+```
+
+Exemplo:
+
+```
+mediaNotas := (nota1 + nota2 + nota3) / 3
+```
+
+Chamada de procedimentos, sintaxe:
+
+```
+ident(parâmetros)
+```
+
+Exemplo:
+
+```
+var nota1, nota2, nota3  : real
+nota1 := 8.3
+nota2 := 5.2
+nota3 := 6.7
+calculoMedia(nota1, nota2, nota3)
+```
+
+Escrever, sintaxe:
+
+```
+print{ITEMSAIDA REPITEM}
+```
+
+Exemplo:
+
+```
+print{'Olá mundo!'}
+```
+
+Estruturas de condição, sintaxe:
+
+```
+if EXPRELACIONAL then BLOCO
+
+ou
+
+if EXPRELACIONAL then BLOCO else BLOCO
+
+
+Exemplo:
+if idade >= 18 then begin
+  print{'Maior de idade'}
+end else begin
+  print{'Menor de idade'}
+end
+```
+
+Estruturas de repetição FOR, sintaxe:
+
+```
+for ident := EXPRESSAO to EXPRESSAO do BLOCO
+```
+
+Exemplo:
+
+```
+for i := 0 to 10 do begin
+  i := i + 1;
+  print{i}
+end
+```
+
+Estruturas de repetição WHILE, sintaxe:
+
+```
+while EXPRELACIONAL do BLOCO
+```
+
+Exemplo:
+
+```
+while repetir = 'S' do begin
+  repetir := 'N'
+end
+```
+
+Leitura de dados, sintaxe:
+
+```
+read(ident)
+```
+
+Exemplo:
+
+```
+var nome : string
+print{'Informe o seu nome'}
+read(nome)
+```
