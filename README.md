@@ -122,7 +122,7 @@ Exemplos:
 ```
 
 ### ListaParâmetros
-LISTAPARAMETROS começa com abre parêntesis `(,` pode ser um, nenhum, ou múltiplos **ident**, **nint**, **nreal**, **vstring** ou **literal** divididos por vírgula `,` e termina com fecha parêntesis `)`.
+LISTAPARAMETROS começa com abre parêntesis `(`, pode ser um, nenhum, ou múltiplos **ident**, **nint**, **nreal**, **vstring** ou **literal** divididos por vírgula `,` e terminam com fecha parêntesis `)`.
 
 ### ExpRelacional
 É possivel criar uma EXPRELACIONAL, começa e termina com uma EXPRESSÃO, entre elas está uma operação relacional, podem ser elas `=`, `<>`, `>`, `<`, `>=` e `<=`, representando igual, diferente, maior que, menor que, maior ou igual e menor ou igual em ordem.
@@ -146,10 +146,6 @@ Exemplo:
 ```
 (nChocolateBranco + nChocolatePreto) / nPessoas
 ```
-
-
-### ExpRelacional
-É possivel criar uma EXPRELACIONAL, começa e termina com uma EXPRESSÃO, entre elas está uma operação relacional, podem ser elas `=`, `<>`, `>`, `<`, `>=` e `<=`, representando igual, diferente, maior que, menor que, maior ou igual e menor ou igual em ordem.
 
 ### Blocos
 
@@ -204,6 +200,9 @@ Exemplo:
 print{'Olá mundo!'}
 ```
 
+##### ExpRelacional
+É possivel criar uma EXPRELACIONAL, começa e termina com uma EXPRESSÃO, entre elas está uma operação relacional, podem ser elas `=`, `<>`, `>`, `<`, `>=` e `<=`, representando igual, diferente, maior que, menor que, maior ou igual e menor ou igual em ordem.
+
 Estruturas de condição, sintaxe:
 
 ```
@@ -212,14 +211,20 @@ if EXPRELACIONAL then BLOCO
 ou
 
 if EXPRELACIONAL then BLOCO else BLOCO
-
+```
 
 Exemplo:
-if idade >= 18 then begin
-  print{'Maior de idade'}
-end else begin
-  print{'Menor de idade'}
-end
+
+```
+idade := 18
+if idade >= 18 then
+    begin
+        print{'Maior de idade'}
+    end
+ else
+    begin
+        print{'Menor de idade'}
+    end
 ```
 
 Estruturas de repetição FOR, sintaxe:
@@ -231,10 +236,10 @@ for ident := EXPRESSAO to EXPRESSAO do BLOCO
 Exemplo:
 
 ```
-for i := 0 to 10 do begin
-  i := i + 1;
-  print{i}
-end
+for i := 0 to 10 do
+    begin
+        print{i}
+    end
 ```
 
 Estruturas de repetição WHILE, sintaxe:
@@ -246,9 +251,12 @@ while EXPRELACIONAL do BLOCO
 Exemplo:
 
 ```
-while repetir = 'S' do begin
-  repetir := 'N'
-end
+contador := 1
+while contador <= 10 do
+    begin
+        print{contador}
+        contador := contador + 1
+    end
 ```
 
 Leitura de dados, sintaxe:
@@ -261,6 +269,5 @@ Exemplo:
 
 ```
 var nome : string
-print{'Informe o seu nome'}
 read(nome)
 ```
