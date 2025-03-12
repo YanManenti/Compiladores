@@ -58,11 +58,8 @@ const idade1 = 18;
 const idade2 = 50;
 ```
 
-### ListaVariáveis
-LISTAVARIAVEIS pode ser um, nenhum, ou múltiplos `ident` divididos por vírgula `,`. São usados para agrupar VARIAVEIS por tipo.
-
 ### Variáveis
-É possível criar uma, nenhuma ou múltiplas VARIÁVEIS, devem ser posicionadas depois das CONSTANTES e antes dos PROCEDIMENTOS. Começam com a palavra `var` seguido do identificador, o tipo é separado do identificador por dois pontos `:` e terminam com ponto e vírgula `;`. No caso de múltiplas VARIÁVEIS, é possível agrupá-las por tipo usando uma vírgula para diferenciá-las. As VARIÁVEIS podem ser dos tipos **integer**, **real** e **string**.
+É possível criar uma, nenhuma ou múltiplas VARIÁVEIS, devem ser posicionadas depois das CONSTANTES e antes dos PROCEDIMENTOS. Começam com a palavra `var` seguido do identificador, o tipo é separado do identificador por dois pontos `:` e terminam com ponto e vírgula `;`. No caso de múltiplas VARIÁVEIS, é possível agrupá-las por tipo usando uma vírgula para diferenciá-las, chamada de LISTAVARIAVEIS. As VARIÁVEIS podem ser dos tipos **integer**, **real** e **string**.
 
 Sintaxe:
 
@@ -73,6 +70,7 @@ var ident : TIPO;
 Exemplos:
 
 ```
+var minhaVariavel : string;
 var minhaVariavel, minhaVariavel2 : integer;
 ```
 
@@ -124,13 +122,10 @@ Exemplos:
 ### ListaParâmetros
 LISTAPARAMETROS começa com abre parêntesis `(`, pode ser um, nenhum, ou múltiplos **ident**, **nint**, **nreal**, **vstring** ou **literal** divididos por vírgula `,` e terminam com fecha parêntesis `)`.
 
-### ExpRelacional
-É possivel criar uma EXPRELACIONAL, começa e termina com uma EXPRESSÃO, entre elas está uma operação relacional, podem ser elas `=`, `<>`, `>`, `<`, `>=` e `<=`, representando igual, diferente, maior que, menor que, maior ou igual e menor ou igual em ordem.
-
 ### Fator
 São elementos dentro de uma expressão. Representam os valores, que nos quais podem ser um `ident`, `nint`, `nreal`, `literal`, `vstring`
 
-### Termo
+### Termos
 São fatores e operações que compõem a expressão
 
 Exemplo:
@@ -139,7 +134,7 @@ nChocolates / 2
 ```
 
 ### Expressão
-É uma combinação de valores, variáveis, operadores e chamadas procedimentos. Podem ser usadas para realizar cálculos, tomar decisões e manipular dados. A expressão usa termos
+É uma combinação de valores, variáveis, operadores e chamadas procedimentos. Podem ser usadas para realizar cálculos, tomar decisões e manipular dados. A expressão usa TERMOS.
 
 Exemplo:
 
@@ -243,6 +238,7 @@ for i := 0 to 10 do
 ```
 
 Estruturas de repetição WHILE, sintaxe:
+Enquanto a EXPRELACIONAL for verdadeira, o BLOCO será executado.
 
 ```
 while EXPRELACIONAL do BLOCO
