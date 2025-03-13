@@ -80,7 +80,7 @@ var saldo : real;
 ```
 
 ### Procedimentos
-É possível criar um, nenhum ou múltiplos PROCEDIMENTOS, devem ser o último não terminal em DECLARAÇÕES e vir antes do BLOCO de PROGRAMA. Começam com a palavra `procedure` seguido por `ident` e PARAMENTROS, ponto e vírgula `;` são utilizados para separar PARAMETROS e BLOCO para terminar a declaração.
+É possível criar um, nenhum ou múltiplos PROCEDIMENTOS, devem ser o último não terminal em DECLARAÇÕES e vir antes do BLOCO de PROGRAMA. Começam com a palavra `procedure` seguido por `ident` e PARAMENTROS, ponto e vírgula `;` são utilizados para separar PARAMETROS, BLOCO  e para terminar a declaração.
 
 Sintaxe:
 
@@ -88,18 +88,7 @@ Sintaxe:
 procedure nomeProcedimento PARAMETROS ; BLOCO ;
 ```
 
-Exemplos:
-
-```
-procedure nomeProcedimento PARAMETROS ; BLOCO ;
-```
-
-```
-procedure nomeProcedimento1 PARAMETROS ; BLOCO ;
-procedure nomeProcedimento2 PARAMETROS ; BLOCO ;
-```
-
-### Parametros
+##### Parâmetros em Procedimentos
 É possível criar um ou nenhum PARAMETRO, deve vir depois do `ident` em PROCEDIMENTOS e antes do ponto e vírgula `;`. Começam com um abre parêntesis `(`, seguido de uma LISTAVARIAVEIS e dois pontos `:`, depois o TIPO é especificado e a declaração termina com um fecha parêntesis `)`.
 
 Sintaxe:
@@ -111,16 +100,23 @@ Sintaxe:
 Exemplos:
 
 ```
-( variavel1 : integer )
+procedure nomeProcedimento (variavel1 : integer) ;
+    begin
+        COMANDOS
+    end
 ```
 
 ```
-( variavel1, variavel2 : integer )
-( variavel1, variavel2 : integer, variavel3 : real )
-```
+procedure nomeProcedimento1 (variavel1 : integer, variavel2 : string) ;
+    begin
+        COMANDOS
+    end
 
-### ListaParâmetros
-LISTAPARAMETROS começa com abre parêntesis `(`, pode ser um, nenhum, ou múltiplos **ident**, **nint**, **nreal**, **vstring** ou **literal** divididos por vírgula `,` e terminam com fecha parêntesis `)`.
+procedure nomeProcedimento2 (variavel1, variavel2 : integer, variavel3 : string) ;
+    begin
+        COMANDOS
+    end
+```
 
 ### Fator
 São elementos dentro de uma expressão. Representam os valores, que nos quais podem ser um `ident`, `nint`, `nreal`, `literal`, `vstring`
@@ -169,6 +165,9 @@ mediaNotas := (nota1 + nota2 + nota3) / 3
 
 Chamada de procedimentos, sintaxe:
 
+##### ListaParâmetros
+LISTAPARAMETROS começa com abre parêntesis `(`, pode ser um, nenhum, ou múltiplos **ident**, **nint**, **nreal**, **vstring** ou **literal** divididos por vírgula `,` e terminam com fecha parêntesis `)`.
+
 ```
 ident(parâmetros)
 ```
@@ -196,7 +195,7 @@ print{'Olá mundo!'}
 ```
 
 ##### ExpRelacional
-É possivel criar uma EXPRELACIONAL, começa e termina com uma EXPRESSÃO, entre elas está uma operação relacional, podem ser elas `=`, `<>`, `>`, `<`, `>=` e `<=`, representando igual, diferente, maior que, menor que, maior ou igual e menor ou igual em ordem.
+É possivel criar uma EXPRELACIONAL, começa e termina com uma EXPRESSÃO, entre elas está uma operação relacional, podem ser elas "igual" `=`, "diferente" `<>`, "maior que" `>`, "menor que" `<`, "maior ou igual" `>=` e " maior ou igual" `<=`.
 
 Estruturas de condição, sintaxe:
 
