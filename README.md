@@ -1,3 +1,6 @@
+# Compiladores
+**Grupo:** Micael Mendes, Misael Mendes e Yan Manenti.
+
 ## Terminais Codificados
 
 | Cód | Token    |
@@ -80,25 +83,6 @@
 | 71  | PAR             |
 | 72  | REPPAR          |
 
-
-# Compiladores
-ident = Identificador/Nome escolhido para declaração.
-
-### Programa
-Um PROGRAMA começa com a palavra `program` seguido do identificador, as DECLARAÇÕES e o BLOCO vem depois de um ponto e vírgula `;`, a declaração termina usando um ponto final `.`.
-
-Sintaxe:
-
-```
-program ident ; DECLARAÇÕES BLOCO .
-```
-
-Exemplos:
-
-```
-program meuPrograma ; DECLARAÇÕES BLOCO .
-```
-
 ### Comentários
 Comentários são usados para ajudar na compreemsão do código. Comentários em linha serão iniciados por dois sinais numéricos `#`, e comentários de bloco (englobam várias linhas) por um sinal numérico seguido por um asterisco `*`. 
 
@@ -116,7 +100,22 @@ Comentário de bloco
 *#
 ```
 
-### Tipagem
+### Programa
+Um PROGRAMA começa com a palavra `program` seguido do identificador, as DECLARAÇÕES e o BLOCO vem depois de um ponto e vírgula `;`, a declaração termina usando um ponto final `.`. As DECLARAÇÕES e o BLOCO são o corpo do PROGRAMA.
+
+Sintaxe:
+
+```
+program ident ; DECLARAÇÕES BLOCO .
+```
+
+Exemplos:
+
+```
+program meuPrograma ; 
+    print{"Hello World!"}
+.
+```
 
 ### Declarações
 As DECLARAÇÕES são divididas em CONSTANTES, VARIÁVEIS e PROCEDIMENTOS, que são posicionadas em ordem e sem separadores.
@@ -163,7 +162,7 @@ var saldo : real;
 ```
 
 ### Procedimentos
-É possível criar um, nenhum ou múltiplos PROCEDIMENTOS, devem ser o último não terminal em DECLARAÇÕES e vir antes do BLOCO de PROGRAMA. Começam com a palavra `procedure` seguido por `ident` e PARAMENTROS, ponto e vírgula `;` são utilizados para separar PARAMETROS, BLOCO  e para terminar a declaração.
+É possível criar um, nenhum ou múltiplos PROCEDIMENTOS, devem ser o último não terminal em DECLARAÇÕES e vir antes do BLOCO de PROGRAMA. Começam com a palavra `procedure` seguido pelo identificador `ident` e PARAMENTROS, ponto e vírgula `;` são utilizados para separar PARAMETROS, BLOCO  e para terminar a declaração.
 
 Sintaxe:
 
@@ -171,8 +170,8 @@ Sintaxe:
 procedure nomeProcedimento PARAMETROS ; BLOCO ;
 ```
 
-##### Parâmetros em Procedimentos
-É possível criar um ou nenhum PARAMETRO, deve vir depois do `ident` em PROCEDIMENTOS e antes do ponto e vírgula `;`. Começam com um abre parêntesis `(`, seguido de uma LISTAVARIAVEIS e dois pontos `:`, depois o TIPO é especificado e a declaração termina com um fecha parêntesis `)`.
+#### Parâmetros em Procedimentos
+É possível criar um ou nenhum PARAMETRO, deve vir depois do identificador `ident` em PROCEDIMENTOS e antes do ponto e vírgula `;`. Começam com um abre parêntesis `(`, seguido de uma LISTAVARIAVEIS e dois pontos `:`, depois o TIPO é especificado e a declaração termina com um fecha parêntesis `)`.
 
 Sintaxe:
 
@@ -230,9 +229,9 @@ end
 ```
 
 ### Comandos
-Os COMANDOS possibilitam o uso de `print`, estruturas de condição, estruturas de repetição e atribuição para `ident`.
+Os COMANDOS possibilitam o uso de `print`, estruturas de condição, estruturas de repetição e atribuição para o identificador `ident`.
 
-##### Atribuição de dados
+##### Atribuição de expressão
 
 Sintaxe:
 
@@ -246,7 +245,7 @@ Exemplo:
 mediaNotas := (nota1 + nota2 + nota3) / 3
 ```
 
-##### Chamada de procedimentos
+#### Chamada de procedimentos
 
 Lista Parâmetros
 LISTAPARAMETROS pode ser um, nenhum, ou múltiplos **ident**, **nint**, **nreal**, **vstring** ou **literal** divididos por vírgula `,`.
@@ -268,7 +267,7 @@ begin
 end
 ```
 
-##### Escrever na tela
+#### Escrever na tela
 Escreve na tela a EXPRESSÃO em ITEMSAIDA.
 
 Sintaxe:
@@ -283,7 +282,7 @@ Exemplo:
 print{'Olá mundo!'}
 ```
 
-##### Estruturas de condição
+#### Estruturas de condição
 É uma estrutura que executa código dependendo de uma condição, caso verdadeira o bloco em `then`  é executado, caso falso o bloco em `else` é executado. A condição utiliza EXPRESSÕES e OPERADORES RELACIONAIS para verificar lógica.
 
 Expressão Relacional
@@ -326,6 +325,9 @@ if idade >= 18 then
 ##### Estruturas de repetição FOR
 O `ident` é usando como um contador, toda vez que o bloco é executado o contador aumenta em um, a repetição para quando a primeira EXPRESSÃO for maior que a segunda.
 
+#### Estruturas de repetição FOR
+O identificador `ident` é usando como um contador, toda vez que o bloco é executado o contador aumenta em um, a repetição para quando o contador for maior que a segunda EXPRESSÃO.
+
 Sintaxe:
 
 ```
@@ -341,8 +343,8 @@ for i := 0 to 10 do
     end
 ```
 
-##### Estruturas de repetição WHILE
-Enquanto a EXPRELACIONAL for verdadeira, o BLOCO será executado.
+#### Estruturas de repetição WHILE
+Começam com a palavra `while` seguida por uma EXPRELACIONAL, enquanto for verdadeira, o BLOCO depois de `do` será executado.
 
 Sintaxe:
 ```
@@ -360,8 +362,8 @@ while contador <= 10 do
     end
 ```
 
-##### Leitura de dados
-Atribui a entrada vinda do usuário para o `ident` dentro dos parentêsis.
+#### Leitura de dados
+Atribui a entrada vinda do usuário para o identificador `ident` dentro dos parênteses.
 
 Sintaxe:
 
@@ -375,3 +377,20 @@ Exemplo:
 var nome : string
 read(nome)
 ```
+
+# Regras Léxicas
+
+1. Dados do tipo `integer` aceitam números de -20000000000 até 20000000000.
+2. Dados do tipo `real` aceitam números de -20000000000.00 até 20000000000.00. Se a parte decimal for diferente de 0, deve conter duas casas depois de um ponto `.`.
+3. Dados do tipo `string` aceitam um único ou uma cadeia de caracteres dentro de aspas duplas `"`.
+4. Dados do tipo `literal` aceitam os outros tipos de dado do programa, podem ser escritos diretamente no código sem nenhuma pontuação adiional.
+5. Identificadores `ident` não podem conter caracteres especiais, espaços ou iniciar com números, devem ter no máximo 50 caracteres.
+6. Comentários de linha devem começar usando `##` e comentários com mais de uma linha devem começar com `#*` e terminar com `*#`.
+
+# Erros Léxicos
+
+1. Dados do tipo `integer` maiores que 20000000000 ou menores que -20000000000.
+2. Dados do tipo `real` maiores que 20000000000 ou menores que -20000000000, ou que usam um símbolo diferente de `.` para marcar a parte decimal.
+3. Dados do tipo `string` que não usam aspas duplas `"` no começo, fim ou ambos.
+4. Identificadores que contenham caracteres especiais, iniciam com números, contenham espaços ou mais de 50 caracteres.
+5. Comentários de linha que não começem com `##` e comentário com mais de uma linha que não começem com `#*`, não terminem com `*#` ou ambos.
