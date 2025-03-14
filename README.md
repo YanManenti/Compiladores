@@ -112,8 +112,10 @@ program ident ; DECLARAÇÕES BLOCO .
 Exemplos:
 
 ```
-program meuPrograma ; 
-    print{"Hello World!"}
+program meuPrograma ;
+    begin
+        print{"Hello World!"}
+    end
 .
 ```
 
