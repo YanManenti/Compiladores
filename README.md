@@ -322,9 +322,6 @@ if idade >= 18 then
     end
 ```
 
-##### Estruturas de repetição FOR
-O `ident` é usando como um contador, toda vez que o bloco é executado o contador aumenta em um, a repetição para quando a primeira EXPRESSÃO for maior que a segunda.
-
 #### Estruturas de repetição FOR
 O identificador `ident` é usando como um contador, toda vez que o bloco é executado o contador aumenta em um, a repetição para quando o contador for maior que a segunda EXPRESSÃO.
 
