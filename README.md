@@ -1,20 +1,7 @@
 # Compiladores
-ident = Identificador/Nome escolhido para declaração.
+**Grupo:** Micael Mendes, Misael Mendes e Yan Manenti.
 
-### Programa
-Um PROGRAMA começa com a palavra `program` seguido do identificador, as DECLARAÇÕES e o BLOCO vem depois de um ponto e vírgula `;`, a declaração termina usando um ponto final `.`.
-
-Sintaxe:
-
-```
-program ident ; DECLARAÇÕES BLOCO .
-```
-
-Exemplos:
-
-```
-program meuPrograma ;  .
-```
+`ident` = Identificador/Nome escolhido para declaração.
 
 ### Comentários
 Comentários são usados para ajudar na compreemsão do código. Comentários em linha serão iniciados por dois sinais numéricos `#`, e comentários de bloco (englobam várias linhas) por um sinal numérico seguido por um asterisco `*`. 
@@ -33,7 +20,22 @@ Comentário de bloco
 *#
 ```
 
-### Tipagem
+### Programa
+Um PROGRAMA começa com a palavra `program` seguido do identificador, as DECLARAÇÕES e o BLOCO vem depois de um ponto e vírgula `;`, a declaração termina usando um ponto final `.`. As DECLARAÇÕES e o BLOCO são o corpo do PROGRAMA.
+
+Sintaxe:
+
+```
+program ident ; DECLARAÇÕES BLOCO .
+```
+
+Exemplos:
+
+```
+program meuPrograma ; 
+    print{"Hello World!"}
+.
+```
 
 ### Declarações
 As DECLARAÇÕES são divididas em CONSTANTES, VARIÁVEIS e PROCEDIMENTOS, que são posicionadas em ordem e sem separadores.
@@ -58,11 +60,8 @@ const idade1 = 18;
 const idade2 = 50;
 ```
 
-### ListaVariáveis
-LISTAVARIAVEIS pode ser um, nenhum, ou múltiplos `ident` divididos por vírgula `,`. São usados para agrupar VARIAVEIS por tipo.
-
 ### Variáveis
-É possível criar uma, nenhuma ou múltiplas VARIÁVEIS, devem ser posicionadas depois das CONSTANTES e antes dos PROCEDIMENTOS. Começam com a palavra `var` seguido do identificador, o tipo é separado do identificador por dois pontos `:` e terminam com ponto e vírgula `;`. No caso de múltiplas VARIÁVEIS, é possível agrupá-las por tipo usando uma vírgula para diferenciá-las. As VARIÁVEIS podem ser dos tipos **integer**, **real** e **string**.
+É possível criar uma, nenhuma ou múltiplas VARIÁVEIS, devem ser posicionadas depois das CONSTANTES e antes dos PROCEDIMENTOS. Começam com a palavra `var` seguido do identificador, o tipo é separado do identificador por dois pontos `:` e terminam com ponto e vírgula `;`. No caso de múltiplas VARIÁVEIS, é possível agrupá-las por tipo usando uma vírgula para diferenciá-las, chamada de LISTAVARIAVEIS. As VARIÁVEIS podem ser dos tipos **integer**, **real** e **string**.
 
 Sintaxe:
 
@@ -73,6 +72,7 @@ var ident : TIPO;
 Exemplos:
 
 ```
+var minhaVariavel : string;
 var minhaVariavel, minhaVariavel2 : integer;
 ```
 
@@ -82,7 +82,7 @@ var saldo : real;
 ```
 
 ### Procedimentos
-É possível criar um, nenhum ou múltiplos PROCEDIMENTOS, devem ser o último não terminal em DECLARAÇÕES e vir antes do BLOCO de PROGRAMA. Começam com a palavra `procedure` seguido por `ident` e PARAMENTROS, ponto e vírgula `;` são utilizados para separar PARAMETROS e BLOCO para terminar a declaração.
+É possível criar um, nenhum ou múltiplos PROCEDIMENTOS, devem ser o último não terminal em DECLARAÇÕES e vir antes do BLOCO de PROGRAMA. Começam com a palavra `procedure` seguido pelo identificador `ident` e PARAMENTROS, ponto e vírgula `;` são utilizados para separar PARAMETROS, BLOCO  e para terminar a declaração.
 
 Sintaxe:
 
@@ -90,19 +90,8 @@ Sintaxe:
 procedure nomeProcedimento PARAMETROS ; BLOCO ;
 ```
 
-Exemplos:
-
-```
-procedure nomeProcedimento PARAMETROS ; BLOCO ;
-```
-
-```
-procedure nomeProcedimento1 PARAMETROS ; BLOCO ;
-procedure nomeProcedimento2 PARAMETROS ; BLOCO ;
-```
-
-### Parametros
-É possível criar um ou nenhum PARAMETRO, deve vir depois do `ident` em PROCEDIMENTOS e antes do ponto e vírgula `;`. Começam com um abre parêntesis `(`, seguido de uma LISTAVARIAVEIS e dois pontos `:`, depois o TIPO é especificado e a declaração termina com um fecha parêntesis `)`.
+#### Parâmetros em Procedimentos
+É possível criar um ou nenhum PARAMETRO, deve vir depois do identificador `ident` em PROCEDIMENTOS e antes do ponto e vírgula `;`. Começam com um abre parêntesis `(`, seguido de uma LISTAVARIAVEIS e dois pontos `:`, depois o TIPO é especificado e a declaração termina com um fecha parêntesis `)`.
 
 Sintaxe:
 
@@ -113,57 +102,61 @@ Sintaxe:
 Exemplos:
 
 ```
-( variavel1 : integer )
+procedure nomeProcedimento (variavel1 : integer) ;
+    begin
+        COMANDOS
+    end
 ```
 
 ```
-( variavel1, variavel2 : integer )
-( variavel1, variavel2 : integer, variavel3 : real )
-```
+procedure nomeProcedimento1 (variavel1 : integer, variavel2 : string) ;
+    begin
+        COMANDOS
+    end
 
-### ListaParâmetros
-LISTAPARAMETROS começa com abre parêntesis `(`, pode ser um, nenhum, ou múltiplos **ident**, **nint**, **nreal**, **vstring** ou **literal** divididos por vírgula `,` e terminam com fecha parêntesis `)`.
-
-### ExpRelacional
-É possivel criar uma EXPRELACIONAL, começa e termina com uma EXPRESSÃO, entre elas está uma operação relacional, podem ser elas `=`, `<>`, `>`, `<`, `>=` e `<=`, representando igual, diferente, maior que, menor que, maior ou igual e menor ou igual em ordem.
-
-### Fator
-São elementos dentro de uma expressão. Representam os valores, que nos quais podem ser um `ident`, `nint`, `nreal`, `literal`, `vstring`
-
-### Termo
-São fatores e operações que compõem a expressão
-
-Exemplo:
-```
-nChocolates / 2
+procedure nomeProcedimento2 (variavel1, variavel2 : integer, variavel3 : string) ;
+    begin
+        COMANDOS
+    end
 ```
 
 ### Expressão
-É uma combinação de valores, variáveis, operadores e chamadas procedimentos. Podem ser usadas para realizar cálculos, tomar decisões e manipular dados. A expressão usa termos
+É um conjunto de operadores matemáticos `+`, `-`, `*` e `/` que utilizam `ident`, `nreal`, `nint`, `literal`, `vstring` e outras EXPRESSÕES entre parênteses como dados entre sí. Pode ser atribuído a um `ident`, usado em `print` e comparado com outra EXPRESSÃO usando operadores relacionais.
+
+Sintaxe:
+```
+ident := EXPRESSÃO ;
+print { EXPRESSÃO } ;
+if EXPRESSÃO <> EXPRESSÃO then
+```
 
 Exemplo:
 
 ```
-(nChocolateBranco + nChocolatePreto) / nPessoas
+soma := 1 + 1 ;
+saldo := 100.00 - 8.50 ;
+contador := contador + 1 ;
 ```
 
 ### Blocos
+Todo bloco se inicia com begin e termina com end. São usados para manipulação de dados. Estão localizados depois de DECLARAÇÕES em PROGRAMA, depois de PARÂMETROS em PROCEDIMENTOS, depois do `then` e `else` na estrutura de condição e depois do `do` nas duas estruturas de repetição.
 
-Todo bloco se inicia com begin e termina com end.
-
+Sintaxe:
 ```
 begin
-  COMANDOS
+    COMANDOS
 end
 ```
 
 ### Comandos
-Em meio aos blocos eu adiciono comandos, e existem alguns tipos de comandos que posso adicionar ao bloco.
+Os COMANDOS possibilitam o uso de `print`, estruturas de condição, estruturas de repetição e atribuição para o identificador `ident`.
 
-Entrada de dados, sintaxe:
+##### Atribuição de expressão
+
+Sintaxe:
 
 ```
-ident := expressão
+ident := EXPRESSÃO
 ```
 
 Exemplo:
@@ -172,26 +165,35 @@ Exemplo:
 mediaNotas := (nota1 + nota2 + nota3) / 3
 ```
 
-Chamada de procedimentos, sintaxe:
+#### Chamada de procedimentos
+
+Lista Parâmetros
+LISTAPARAMETROS pode ser um, nenhum, ou múltiplos **ident**, **nint**, **nreal**, **vstring** ou **literal** divididos por vírgula `,`.
+
+Sintaxe:
 
 ```
-ident(parâmetros)
+ident(LISTAPARAMETROS)
 ```
 
 Exemplo:
 
 ```
-var nota1, nota2, nota3  : real
-nota1 := 8.3
-nota2 := 5.2
-nota3 := 6.7
-calculoMedia(nota1, nota2, nota3)
+begin
+    nota1 := 8.3
+    nota2 := 5.2
+    nota3 := 6.7
+    calculoMedia(nota1, nota2, nota3)
+end
 ```
 
-Escrever, sintaxe:
+#### Escrever na tela
+Escreve na tela a EXPRESSÃO em ITEMSAIDA.
+
+Sintaxe:
 
 ```
-print{ITEMSAIDA REPITEM}
+print{ITEMSAIDA}
 ```
 
 Exemplo:
@@ -200,20 +202,33 @@ Exemplo:
 print{'Olá mundo!'}
 ```
 
-##### ExpRelacional
-É possivel criar uma EXPRELACIONAL, começa e termina com uma EXPRESSÃO, entre elas está uma operação relacional, podem ser elas `=`, `<>`, `>`, `<`, `>=` e `<=`, representando igual, diferente, maior que, menor que, maior ou igual e menor ou igual em ordem.
+#### Estruturas de condição
+É uma estrutura que executa código dependendo de uma condição, caso verdadeira o bloco em `then`  é executado, caso falso o bloco em `else` é executado. A condição utiliza EXPRESSÕES e OPERADORES RELACIONAIS para verificar lógica.
 
-Estruturas de condição, sintaxe:
+Expressão Relacional
+É possivel criar uma EXPRESSÃO RELACIONAL, começa e termina com uma EXPRESSÃO, entre elas está uma operação relacional(OPREL), podem ser elas "igual" `=`, "diferente" `<>`, "maior que" `>`, "menor que" `<`, "maior ou igual" `>=` e " menor ou igual" `<=`.
+
+Sintaxe:
 
 ```
-if EXPRELACIONAL then BLOCO
+if EXPRESSÃO OPREL EXPRESSÃO then BLOCO
 
 ou
 
-if EXPRELACIONAL then BLOCO else BLOCO
+if EXPRESSÃO OPREL EXPRESSÃO then BLOCO else BLOCO
 ```
 
-Exemplo:
+Exemplo sem else:
+
+```
+idade := 18
+if idade >= 18 then
+    begin
+        print{'Maior de idade'}
+    end
+```
+
+Exemplo com else:
 
 ```
 idade := 18
@@ -227,7 +242,10 @@ if idade >= 18 then
     end
 ```
 
-Estruturas de repetição FOR, sintaxe:
+#### Estruturas de repetição FOR
+O identificador `ident` é usando como um contador, toda vez que o bloco é executado o contador aumenta em um, a repetição para quando o contador for maior que a segunda EXPRESSÃO.
+
+Sintaxe:
 
 ```
 for ident := EXPRESSAO to EXPRESSAO do BLOCO
@@ -242,8 +260,10 @@ for i := 0 to 10 do
     end
 ```
 
-Estruturas de repetição WHILE, sintaxe:
+#### Estruturas de repetição WHILE
+Começam com a palavra `while` seguida por uma EXPRELACIONAL, enquanto for verdadeira, o BLOCO depois de `do` será executado.
 
+Sintaxe:
 ```
 while EXPRELACIONAL do BLOCO
 ```
@@ -259,7 +279,10 @@ while contador <= 10 do
     end
 ```
 
-Leitura de dados, sintaxe:
+#### Leitura de dados
+Atribui a entrada vinda do usuário para o identificador `ident` dentro dos parênteses.
+
+Sintaxe:
 
 ```
 read(ident)
@@ -271,3 +294,20 @@ Exemplo:
 var nome : string
 read(nome)
 ```
+
+# Regras Léxicas
+
+1. Dados do tipo `integer` aceitam números de -20000000000 até 20000000000.
+2. Dados do tipo `real` aceitam números de -20000000000.00 até 20000000000.00. Se a parte decimal for diferente de 0, deve conter duas casas depois de um ponto `.`.
+3. Dados do tipo `string` aceitam um único ou uma cadeia de caracteres dentro de aspas duplas `"`.
+4. Dados do tipo `literal` aceitam os outros tipos de dado do programa, podem ser escritos diretamente no código sem nenhuma pontuação adiional.
+5. Identificadores `ident` não podem conter caracteres especiais, espaços ou iniciar com números, devem ter no máximo 50 caracteres.
+6. Comentários de linha devem começar usando `##` e comentários com mais de uma linha devem começar com `#*` e terminar com `*#`.
+
+# Erros Léxicos
+
+1. Dados do tipo `integer` maiores que 20000000000 ou menores que -20000000000.
+2. Dados do tipo `real` maiores que 20000000000 ou menores que -20000000000, ou que usam um símbolo diferente de `.` para marcar a parte decimal.
+3. Dados do tipo `string` que não usam aspas duplas `"` no começo, fim ou ambos.
+4. Identificadores que contenham caracteres especiais, iniciam com números, contenham espaços ou mais de 50 caracteres.
+5. Comentários de linha que não começem com `##` e comentário com mais de uma linha que não começem com `#*`, não terminem com `*#` ou ambos.
