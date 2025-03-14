@@ -1,5 +1,7 @@
 # Compiladores
-ident = Identificador/Nome escolhido para declaração.
+**Grupo:** Micael Mendes, Misael Mendes e Yan Manenti.
+
+`ident` = Identificador/Nome escolhido para declaração.
 
 ### Comentários
 Comentários são usados para ajudar na compreemsão do código. Comentários em linha serão iniciados por dois sinais numéricos `#`, e comentários de bloco (englobam várias linhas) por um sinal numérico seguido por um asterisco `*`. 
@@ -36,7 +38,7 @@ program meuPrograma ;
 ```
 
 ### Declarações
-As DECLARAÇÕES são divididas em CONSTANTES, VARIÁVEIS e PROCEDIMENTOS, que são posicionadas em ordem e sem separadores. Essas DECLARAÇÕES serão reutilizáveis 
+As DECLARAÇÕES são divididas em CONSTANTES, VARIÁVEIS e PROCEDIMENTOS, que são posicionadas em ordem e sem separadores.
 
 ### Constantes
 É possível criar uma, nenhuma ou múltiplas CONSTANTES, devem ser posicionadas no início das DECLARAÇÕES e antes das VARIÁVEIS. Começam com a palavra `const` seguido do identificador, o tipo é separado do identificador um igual `=` e terminam com ponto e vírgula `;`. No caso de múltiplas CONSTANTES toda a estrutura deve ser copiada. Todas as CONSTANTES são **nint**.
@@ -88,7 +90,7 @@ Sintaxe:
 procedure nomeProcedimento PARAMETROS ; BLOCO ;
 ```
 
-##### Parâmetros em Procedimentos
+#### Parâmetros em Procedimentos
 É possível criar um ou nenhum PARAMETRO, deve vir depois do identificador `ident` em PROCEDIMENTOS e antes do ponto e vírgula `;`. Começam com um abre parêntesis `(`, seguido de uma LISTAVARIAVEIS e dois pontos `:`, depois o TIPO é especificado e a declaração termina com um fecha parêntesis `)`.
 
 Sintaxe:
@@ -163,7 +165,7 @@ Exemplo:
 mediaNotas := (nota1 + nota2 + nota3) / 3
 ```
 
-##### Chamada de procedimentos
+#### Chamada de procedimentos
 
 Lista Parâmetros
 LISTAPARAMETROS pode ser um, nenhum, ou múltiplos **ident**, **nint**, **nreal**, **vstring** ou **literal** divididos por vírgula `,`.
@@ -185,7 +187,7 @@ begin
 end
 ```
 
-##### Escrever na tela
+#### Escrever na tela
 Escreve na tela a EXPRESSÃO em ITEMSAIDA.
 
 Sintaxe:
@@ -200,7 +202,7 @@ Exemplo:
 print{'Olá mundo!'}
 ```
 
-##### Estruturas de condição
+#### Estruturas de condição
 É uma estrutura que executa código dependendo de uma condição, caso verdadeira o bloco em `then`  é executado, caso falso o bloco em `else` é executado. A condição utiliza EXPRESSÕES e OPERADORES RELACIONAIS para verificar lógica.
 
 Expressão Relacional
@@ -240,8 +242,8 @@ if idade >= 18 then
     end
 ```
 
-##### Estruturas de repetição FOR
-O identificador `ident` é usando como um contador, toda vez que o bloco é executado o contador aumenta em um, a repetição para quando a primeira EXPRESSÃO for maior que a segunda.
+#### Estruturas de repetição FOR
+O identificador `ident` é usando como um contador, toda vez que o bloco é executado o contador aumenta em um, a repetição para quando o contador for maior que a segunda EXPRESSÃO.
 
 Sintaxe:
 
@@ -258,8 +260,8 @@ for i := 0 to 10 do
     end
 ```
 
-##### Estruturas de repetição WHILE
-Enquanto a EXPRELACIONAL for verdadeira, o BLOCO será executado.
+#### Estruturas de repetição WHILE
+Começam com a palavra `while` seguida por uma EXPRELACIONAL, enquanto for verdadeira, o BLOCO depois de `do` será executado.
 
 Sintaxe:
 ```
@@ -277,8 +279,8 @@ while contador <= 10 do
     end
 ```
 
-##### Leitura de dados
-Atribui a entrada vinda do usuário para o identificador `ident` dentro dos parentêsis.
+#### Leitura de dados
+Atribui a entrada vinda do usuário para o identificador `ident` dentro dos parênteses.
 
 Sintaxe:
 
