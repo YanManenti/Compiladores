@@ -13,7 +13,7 @@ program ident ; DECLARAÇÕES BLOCO .
 Exemplos:
 
 ```
-program meuPrograma ;  .
+program meuPrograma ; DECLARAÇÕES BLOCO .
 ```
 
 ### Comentários
@@ -118,43 +118,43 @@ procedure nomeProcedimento2 (variavel1, variavel2 : integer, variavel3 : string)
     end
 ```
 
-### Fator
-São elementos dentro de uma expressão. Representam os valores, que nos quais podem ser um `ident`, `nint`, `nreal`, `literal`, `vstring`
-
-### Termos
-São fatores e operações que compõem a expressão
-
-Exemplo:
-```
-nChocolates / 2
-```
-
 ### Expressão
-É uma combinação de valores, variáveis, operadores e chamadas procedimentos. Podem ser usadas para realizar cálculos, tomar decisões e manipular dados. A expressão usa TERMOS.
+É um conjunto de operadores matemáticos `+`, `-`, `*` e `/` que utilizam `ident`, `nreal`, `nint`, `literal`, `vstring` e outras EXPRESSÕES entre parênteses como dados entre sí. Pode ser atribuído a um `ident`, usado em `print` e comparado com outra EXPRESSÃO usando operadores relacionais.
+
+Sintaxe:
+```
+ident := EXPRESSÃO ;
+print { EXPRESSÃO } ;
+if EXPRESSÃO <> EXPRESSÃO then
+```
 
 Exemplo:
 
 ```
-(nChocolateBranco + nChocolatePreto) / nPessoas
+soma := 1 + 1 ;
+saldo := 100.00 - 8.50 ;
+contador := contador + 1 ;
 ```
 
 ### Blocos
+Todo bloco se inicia com begin e termina com end. São usados para manipulação de dados. Estão localizados depois de DECLARAÇÕES em PROGRAMA, depois de PARÂMETROS em PROCEDIMENTOS, depois do `then` e `else` na estrutura de condição e depois do `do` nas duas estruturas de repetição.
 
-Todo bloco se inicia com begin e termina com end.
-
+Sintaxe:
 ```
 begin
-  COMANDOS
+    COMANDOS
 end
 ```
 
 ### Comandos
-Em meio aos blocos eu adiciono comandos, e existem alguns tipos de comandos que posso adicionar ao bloco.
+Os COMANDOS possibilitam o uso de `print`, estruturas de condição, estruturas de repetição e atribuição para `ident`.
 
-Entrada de dados, sintaxe:
+##### Atribuição de dados
+
+Sintaxe:
 
 ```
-ident := expressão
+ident := EXPRESSÃO
 ```
 
 Exemplo:
@@ -163,29 +163,35 @@ Exemplo:
 mediaNotas := (nota1 + nota2 + nota3) / 3
 ```
 
-Chamada de procedimentos, sintaxe:
+##### Chamada de procedimentos
 
-##### ListaParâmetros
-LISTAPARAMETROS começa com abre parêntesis `(`, pode ser um, nenhum, ou múltiplos **ident**, **nint**, **nreal**, **vstring** ou **literal** divididos por vírgula `,` e terminam com fecha parêntesis `)`.
+Lista Parâmetros
+LISTAPARAMETROS pode ser um, nenhum, ou múltiplos **ident**, **nint**, **nreal**, **vstring** ou **literal** divididos por vírgula `,`.
+
+Sintaxe:
 
 ```
-ident(parâmetros)
+ident(LISTAPARAMETROS)
 ```
 
 Exemplo:
 
 ```
-var nota1, nota2, nota3  : real
-nota1 := 8.3
-nota2 := 5.2
-nota3 := 6.7
-calculoMedia(nota1, nota2, nota3)
+begin
+    nota1 := 8.3
+    nota2 := 5.2
+    nota3 := 6.7
+    calculoMedia(nota1, nota2, nota3)
+end
 ```
 
-Escrever, sintaxe:
+##### Escrever na tela
+Escreve na tela a EXPRESSÃO em ITEMSAIDA.
+
+Sintaxe:
 
 ```
-print{ITEMSAIDA REPITEM}
+print{ITEMSAIDA}
 ```
 
 Exemplo:
@@ -194,20 +200,33 @@ Exemplo:
 print{'Olá mundo!'}
 ```
 
-##### ExpRelacional
-É possivel criar uma EXPRELACIONAL, começa e termina com uma EXPRESSÃO, entre elas está uma operação relacional, podem ser elas "igual" `=`, "diferente" `<>`, "maior que" `>`, "menor que" `<`, "maior ou igual" `>=` e " maior ou igual" `<=`.
+##### Estruturas de condição
+É uma estrutura que executa código dependendo de uma condição, caso verdadeira o bloco em `then`  é executado, caso falso o bloco em `else` é executado. A condição utiliza EXPRESSÕES e OPERADORES RELACIONAIS para verificar lógica.
 
-Estruturas de condição, sintaxe:
+Expressão Relacional
+É possivel criar uma EXPRESSÃO RELACIONAL, começa e termina com uma EXPRESSÃO, entre elas está uma operação relacional(OPREL), podem ser elas "igual" `=`, "diferente" `<>`, "maior que" `>`, "menor que" `<`, "maior ou igual" `>=` e " menor ou igual" `<=`.
+
+Sintaxe:
 
 ```
-if EXPRELACIONAL then BLOCO
+if EXPRESSÃO OPREL EXPRESSÃO then BLOCO
 
 ou
 
-if EXPRELACIONAL then BLOCO else BLOCO
+if EXPRESSÃO OPREL EXPRESSÃO then BLOCO else BLOCO
 ```
 
-Exemplo:
+Exemplo sem else:
+
+```
+idade := 18
+if idade >= 18 then
+    begin
+        print{'Maior de idade'}
+    end
+```
+
+Exemplo com else:
 
 ```
 idade := 18
@@ -221,7 +240,10 @@ if idade >= 18 then
     end
 ```
 
-Estruturas de repetição FOR, sintaxe:
+##### Estruturas de repetição FOR
+O `ident` é usando como um contador, toda vez que o bloco é executado o contador aumenta em um, a repetição para quando a primeira EXPRESSÃO for maior que a segunda.
+
+Sintaxe:
 
 ```
 for ident := EXPRESSAO to EXPRESSAO do BLOCO
@@ -236,9 +258,10 @@ for i := 0 to 10 do
     end
 ```
 
-Estruturas de repetição WHILE, sintaxe:
+##### Estruturas de repetição WHILE
 Enquanto a EXPRELACIONAL for verdadeira, o BLOCO será executado.
 
+Sintaxe:
 ```
 while EXPRELACIONAL do BLOCO
 ```
@@ -254,7 +277,10 @@ while contador <= 10 do
     end
 ```
 
-Leitura de dados, sintaxe:
+##### Leitura de dados
+Atribui a entrada vinda do usuário para o `ident` dentro dos parentêsis.
+
+Sintaxe:
 
 ```
 read(ident)
