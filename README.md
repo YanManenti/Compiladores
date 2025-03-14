@@ -289,7 +289,7 @@ print{ITEMSAIDA}
 Exemplo:
 
 ```
-print{'Olá mundo!'}
+print{"Hello World!"}
 ```
 
 #### Estruturas de condição
@@ -314,7 +314,7 @@ Exemplo sem else:
 idade := 18
 if idade >= 18 then
     begin
-        print{'Maior de idade'}
+        print{"Maior de idade"}
     end
 ```
 
@@ -324,11 +324,11 @@ Exemplo com else:
 idade := 18
 if idade >= 18 then
     begin
-        print{'Maior de idade'}
+        print{"Maior de idade"}
     end
  else
     begin
-        print{'Menor de idade'}
+        print{"Menor de idade"}
     end
 ```
 
@@ -390,9 +390,8 @@ read(nome)
 1. Dados do tipo `integer` aceitam números de -20000000000 até 20000000000.
 2. Dados do tipo `real` aceitam números de -20000000000.00 até 20000000000.00. Se a parte decimal for diferente de 0, deve conter duas casas depois de um ponto `.`.
 3. Dados do tipo `string` aceitam um único ou uma cadeia de caracteres dentro de aspas duplas `"`.
-4. Dados do tipo `literal` aceitam os outros tipos de dado do programa, podem ser escritos diretamente no código sem nenhuma pontuação adiional.
+4. Dados do tipo `literal` aceitam os outros tipos de dado do programa, podem ser escritos diretamente no código sem nenhuma pontuação adicional.
 5. Identificadores `ident` não podem conter caracteres especiais, espaços ou iniciar com números, devem ter no máximo 50 caracteres.
-6. Comentários de linha devem começar usando `##` e comentários com mais de uma linha devem começar com `#*` e terminar com `*#`.
 
 # Erros Léxicos
 
@@ -400,4 +399,4 @@ read(nome)
 2. Dados do tipo `real` maiores que 20000000000 ou menores que -20000000000, ou que usam um símbolo diferente de `.` para marcar a parte decimal.
 3. Dados do tipo `string` que não usam aspas duplas `"` no começo, fim ou ambos.
 4. Identificadores que contenham caracteres especiais, iniciam com números, contenham espaços ou mais de 50 caracteres.
-5. Comentários de linha que não começem com `##` e comentário com mais de uma linha que não começem com `#*`, não terminem com `*#` ou ambos.
+5. Escrever alguma palavra reservada com letra maiúscula.
