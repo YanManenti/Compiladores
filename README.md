@@ -151,7 +151,7 @@ end
 ### Comandos
 Os COMANDOS possibilitam o uso de `print`, estruturas de condição, estruturas de repetição e atribuição para o identificador `ident`.
 
-##### Atribuição de dados
+##### Atribuição de expressão
 
 Sintaxe:
 
