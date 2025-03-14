@@ -1,21 +1,6 @@
 # Compiladores
 ident = Identificador/Nome escolhido para declaração.
 
-### Programa
-Um PROGRAMA começa com a palavra `program` seguido do identificador, as DECLARAÇÕES e o BLOCO vem depois de um ponto e vírgula `;`, a declaração termina usando um ponto final `.`.
-
-Sintaxe:
-
-```
-program ident ; DECLARAÇÕES BLOCO .
-```
-
-Exemplos:
-
-```
-program meuPrograma ; DECLARAÇÕES BLOCO .
-```
-
 ### Comentários
 Comentários são usados para ajudar na compreemsão do código. Comentários em linha serão iniciados por dois sinais numéricos `#`, e comentários de bloco (englobam várias linhas) por um sinal numérico seguido por um asterisco `*`. 
 
@@ -33,10 +18,25 @@ Comentário de bloco
 *#
 ```
 
-### Tipagem
+### Programa
+Um PROGRAMA começa com a palavra `program` seguido do identificador, as DECLARAÇÕES e o BLOCO vem depois de um ponto e vírgula `;`, a declaração termina usando um ponto final `.`. As DECLARAÇÕES e o BLOCO são o corpo do PROGRAMA.
+
+Sintaxe:
+
+```
+program ident ; DECLARAÇÕES BLOCO .
+```
+
+Exemplos:
+
+```
+program meuPrograma ; 
+    print{"Hello World!"}
+.
+```
 
 ### Declarações
-As DECLARAÇÕES são divididas em CONSTANTES, VARIÁVEIS e PROCEDIMENTOS, que são posicionadas em ordem e sem separadores.
+As DECLARAÇÕES são divididas em CONSTANTES, VARIÁVEIS e PROCEDIMENTOS, que são posicionadas em ordem e sem separadores. Essas DECLARAÇÕES serão reutilizáveis 
 
 ### Constantes
 É possível criar uma, nenhuma ou múltiplas CONSTANTES, devem ser posicionadas no início das DECLARAÇÕES e antes das VARIÁVEIS. Começam com a palavra `const` seguido do identificador, o tipo é separado do identificador um igual `=` e terminam com ponto e vírgula `;`. No caso de múltiplas CONSTANTES toda a estrutura deve ser copiada. Todas as CONSTANTES são **nint**.
@@ -80,7 +80,7 @@ var saldo : real;
 ```
 
 ### Procedimentos
-É possível criar um, nenhum ou múltiplos PROCEDIMENTOS, devem ser o último não terminal em DECLARAÇÕES e vir antes do BLOCO de PROGRAMA. Começam com a palavra `procedure` seguido por `ident` e PARAMENTROS, ponto e vírgula `;` são utilizados para separar PARAMETROS, BLOCO  e para terminar a declaração.
+É possível criar um, nenhum ou múltiplos PROCEDIMENTOS, devem ser o último não terminal em DECLARAÇÕES e vir antes do BLOCO de PROGRAMA. Começam com a palavra `procedure` seguido pelo identificador `ident` e PARAMENTROS, ponto e vírgula `;` são utilizados para separar PARAMETROS, BLOCO  e para terminar a declaração.
 
 Sintaxe:
 
@@ -89,7 +89,7 @@ procedure nomeProcedimento PARAMETROS ; BLOCO ;
 ```
 
 ##### Parâmetros em Procedimentos
-É possível criar um ou nenhum PARAMETRO, deve vir depois do `ident` em PROCEDIMENTOS e antes do ponto e vírgula `;`. Começam com um abre parêntesis `(`, seguido de uma LISTAVARIAVEIS e dois pontos `:`, depois o TIPO é especificado e a declaração termina com um fecha parêntesis `)`.
+É possível criar um ou nenhum PARAMETRO, deve vir depois do identificador `ident` em PROCEDIMENTOS e antes do ponto e vírgula `;`. Começam com um abre parêntesis `(`, seguido de uma LISTAVARIAVEIS e dois pontos `:`, depois o TIPO é especificado e a declaração termina com um fecha parêntesis `)`.
 
 Sintaxe:
 
@@ -147,7 +147,7 @@ end
 ```
 
 ### Comandos
-Os COMANDOS possibilitam o uso de `print`, estruturas de condição, estruturas de repetição e atribuição para `ident`.
+Os COMANDOS possibilitam o uso de `print`, estruturas de condição, estruturas de repetição e atribuição para o identificador `ident`.
 
 ##### Atribuição de dados
 
@@ -241,7 +241,7 @@ if idade >= 18 then
 ```
 
 ##### Estruturas de repetição FOR
-O `ident` é usando como um contador, toda vez que o bloco é executado o contador aumenta em um, a repetição para quando a primeira EXPRESSÃO for maior que a segunda.
+O identificador `ident` é usando como um contador, toda vez que o bloco é executado o contador aumenta em um, a repetição para quando a primeira EXPRESSÃO for maior que a segunda.
 
 Sintaxe:
 
@@ -278,7 +278,7 @@ while contador <= 10 do
 ```
 
 ##### Leitura de dados
-Atribui a entrada vinda do usuário para o `ident` dentro dos parentêsis.
+Atribui a entrada vinda do usuário para o identificador `ident` dentro dos parentêsis.
 
 Sintaxe:
 
@@ -292,3 +292,20 @@ Exemplo:
 var nome : string
 read(nome)
 ```
+
+# Regras Léxicas
+
+1. Dados do tipo `integer` aceitam números de -20000000000 até 20000000000.
+2. Dados do tipo `real` aceitam números de -20000000000.00 até 20000000000.00. Se a parte decimal for diferente de 0, deve conter duas casas depois de um ponto `.`.
+3. Dados do tipo `string` aceitam um único ou uma cadeia de caracteres dentro de aspas duplas `"`.
+4. Dados do tipo `literal` aceitam os outros tipos de dado do programa, podem ser escritos diretamente no código sem nenhuma pontuação adiional.
+5. Identificadores `ident` não podem conter caracteres especiais, espaços ou iniciar com números, devem ter no máximo 50 caracteres.
+6. Comentários de linha devem começar usando `##` e comentários com mais de uma linha devem começar com `#*` e terminar com `*#`.
+
+# Erros Léxicos
+
+1. Dados do tipo `integer` maiores que 20000000000 ou menores que -20000000000.
+2. Dados do tipo `real` maiores que 20000000000 ou menores que -20000000000, ou que usam um símbolo diferente de `.` para marcar a parte decimal.
+3. Dados do tipo `string` que não usam aspas duplas `"` no começo, fim ou ambos.
+4. Identificadores que contenham caracteres especiais, iniciam com números, contenham espaços ou mais de 50 caracteres.
+5. Comentários de linha que não começem com `##` e comentário com mais de uma linha que não começem com `#*`, não terminem com `*#` ou ambos.
