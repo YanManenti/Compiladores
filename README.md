@@ -96,7 +96,7 @@ program ident ; DECLARAÇÕES BLOCO .
 Exemplos:
 
 ```
-program meuPrograma ;  .
+program meuPrograma ; DECLARAÇÕES BLOCO .
 ```
 
 ### Comentários
@@ -141,11 +141,8 @@ const idade1 = 18;
 const idade2 = 50;
 ```
 
-### ListaVariáveis
-LISTAVARIAVEIS pode ser um, nenhum, ou múltiplos `ident` divididos por vírgula `,`. São usados para agrupar VARIAVEIS por tipo.
-
 ### Variáveis
-É possível criar uma, nenhuma ou múltiplas VARIÁVEIS, devem ser posicionadas depois das CONSTANTES e antes dos PROCEDIMENTOS. Começam com a palavra `var` seguido do identificador, o tipo é separado do identificador por dois pontos `:` e terminam com ponto e vírgula `;`. No caso de múltiplas VARIÁVEIS, é possível agrupá-las por tipo usando uma vírgula para diferenciá-las. As VARIÁVEIS podem ser dos tipos **integer**, **real** e **string**.
+É possível criar uma, nenhuma ou múltiplas VARIÁVEIS, devem ser posicionadas depois das CONSTANTES e antes dos PROCEDIMENTOS. Começam com a palavra `var` seguido do identificador, o tipo é separado do identificador por dois pontos `:` e terminam com ponto e vírgula `;`. No caso de múltiplas VARIÁVEIS, é possível agrupá-las por tipo usando uma vírgula para diferenciá-las, chamada de LISTAVARIAVEIS. As VARIÁVEIS podem ser dos tipos **integer**, **real** e **string**.
 
 Sintaxe:
 
@@ -156,6 +153,7 @@ var ident : TIPO;
 Exemplos:
 
 ```
+var minhaVariavel : string;
 var minhaVariavel, minhaVariavel2 : integer;
 ```
 
@@ -165,7 +163,7 @@ var saldo : real;
 ```
 
 ### Procedimentos
-É possível criar um, nenhum ou múltiplos PROCEDIMENTOS, devem ser o último não terminal em DECLARAÇÕES e vir antes do BLOCO de PROGRAMA. Começam com a palavra `procedure` seguido por `ident` e PARAMENTROS, ponto e vírgula `;` são utilizados para separar PARAMETROS e BLOCO para terminar a declaração.
+É possível criar um, nenhum ou múltiplos PROCEDIMENTOS, devem ser o último não terminal em DECLARAÇÕES e vir antes do BLOCO de PROGRAMA. Começam com a palavra `procedure` seguido por `ident` e PARAMENTROS, ponto e vírgula `;` são utilizados para separar PARAMETROS, BLOCO  e para terminar a declaração.
 
 Sintaxe:
 
@@ -173,18 +171,7 @@ Sintaxe:
 procedure nomeProcedimento PARAMETROS ; BLOCO ;
 ```
 
-Exemplos:
-
-```
-procedure nomeProcedimento PARAMETROS ; BLOCO ;
-```
-
-```
-procedure nomeProcedimento1 PARAMETROS ; BLOCO ;
-procedure nomeProcedimento2 PARAMETROS ; BLOCO ;
-```
-
-### Parametros
+##### Parâmetros em Procedimentos
 É possível criar um ou nenhum PARAMETRO, deve vir depois do `ident` em PROCEDIMENTOS e antes do ponto e vírgula `;`. Começam com um abre parêntesis `(`, seguido de uma LISTAVARIAVEIS e dois pontos `:`, depois o TIPO é especificado e a declaração termina com um fecha parêntesis `)`.
 
 Sintaxe:
@@ -196,58 +183,61 @@ Sintaxe:
 Exemplos:
 
 ```
-( variavel1 : integer )
+procedure nomeProcedimento (variavel1 : integer) ;
+    begin
+        COMANDOS
+    end
 ```
 
 ```
-( variavel1, variavel2 : integer )
-( variavel1, variavel2 : integer, variavel3 : real )
-```
+procedure nomeProcedimento1 (variavel1 : integer, variavel2 : string) ;
+    begin
+        COMANDOS
+    end
 
-### ListaParâmetros
-LISTAPARAMETROS começa com abre parêntesis `(,` pode ser um, nenhum, ou múltiplos **ident**, **nint**, **nreal**, **vstring** ou **literal** divididos por vírgula `,` e termina com fecha parêntesis `)`.
-
-### Fator
-São elementos dentro de uma expressão. Representam os valores, que nos quais podem ser um `ident`, `nint`, `nreal`, `literal`, `vstring`
-
-### Termo
-São fatores e operações que compõem a expressão
-
-Exemplo:
-```
-nChocolates / 2
+procedure nomeProcedimento2 (variavel1, variavel2 : integer, variavel3 : string) ;
+    begin
+        COMANDOS
+    end
 ```
 
 ### Expressão
-É uma combinação de valores, variáveis, operadores e chamadas procedimentos. Podem ser usadas para realizar cálculos, tomar decisões e manipular dados. A expressão usa termos
+É um conjunto de operadores matemáticos `+`, `-`, `*` e `/` que utilizam `ident`, `nreal`, `nint`, `literal`, `vstring` e outras EXPRESSÕES entre parênteses como dados entre sí. Pode ser atribuído a um `ident`, usado em `print` e comparado com outra EXPRESSÃO usando operadores relacionais.
+
+Sintaxe:
+```
+ident := EXPRESSÃO ;
+print { EXPRESSÃO } ;
+if EXPRESSÃO <> EXPRESSÃO then
+```
 
 Exemplo:
 
 ```
-(nChocolateBranco + nChocolatePreto) / nPessoas
+soma := 1 + 1 ;
+saldo := 100.00 - 8.50 ;
+contador := contador + 1 ;
 ```
-
-
-### ExpRelacional
-É possivel criar uma EXPRELACIONAL, começa e termina com uma EXPRESSÃO, entre elas está uma operação relacional, podem ser elas `=`, `<>`, `>`, `<`, `>=` e `<=`, representando igual, diferente, maior que, menor que, maior ou igual e menor ou igual em ordem.
 
 ### Blocos
+Todo bloco se inicia com begin e termina com end. São usados para manipulação de dados. Estão localizados depois de DECLARAÇÕES em PROGRAMA, depois de PARÂMETROS em PROCEDIMENTOS, depois do `then` e `else` na estrutura de condição e depois do `do` nas duas estruturas de repetição.
 
-Todo bloco se inicia com begin e termina com end.
-
+Sintaxe:
 ```
 begin
-  COMANDOS
+    COMANDOS
 end
 ```
 
 ### Comandos
-Em meio aos blocos eu adiciono comandos, e existem alguns tipos de comandos que posso adicionar ao bloco.
+Os COMANDOS possibilitam o uso de `print`, estruturas de condição, estruturas de repetição e atribuição para `ident`.
 
-Entrada de dados, sintaxe:
+##### Atribuição de dados
+
+Sintaxe:
 
 ```
-ident := expressão
+ident := EXPRESSÃO
 ```
 
 Exemplo:
@@ -256,26 +246,35 @@ Exemplo:
 mediaNotas := (nota1 + nota2 + nota3) / 3
 ```
 
-Chamada de procedimentos, sintaxe:
+##### Chamada de procedimentos
+
+Lista Parâmetros
+LISTAPARAMETROS pode ser um, nenhum, ou múltiplos **ident**, **nint**, **nreal**, **vstring** ou **literal** divididos por vírgula `,`.
+
+Sintaxe:
 
 ```
-ident(parâmetros)
+ident(LISTAPARAMETROS)
 ```
 
 Exemplo:
 
 ```
-var nota1, nota2, nota3  : real
-nota1 := 8.3
-nota2 := 5.2
-nota3 := 6.7
-calculoMedia(nota1, nota2, nota3)
+begin
+    nota1 := 8.3
+    nota2 := 5.2
+    nota3 := 6.7
+    calculoMedia(nota1, nota2, nota3)
+end
 ```
 
-Escrever, sintaxe:
+##### Escrever na tela
+Escreve na tela a EXPRESSÃO em ITEMSAIDA.
+
+Sintaxe:
 
 ```
-print{ITEMSAIDA REPITEM}
+print{ITEMSAIDA}
 ```
 
 Exemplo:
@@ -284,25 +283,50 @@ Exemplo:
 print{'Olá mundo!'}
 ```
 
-Estruturas de condição, sintaxe:
+##### Estruturas de condição
+É uma estrutura que executa código dependendo de uma condição, caso verdadeira o bloco em `then`  é executado, caso falso o bloco em `else` é executado. A condição utiliza EXPRESSÕES e OPERADORES RELACIONAIS para verificar lógica.
+
+Expressão Relacional
+É possivel criar uma EXPRESSÃO RELACIONAL, começa e termina com uma EXPRESSÃO, entre elas está uma operação relacional(OPREL), podem ser elas "igual" `=`, "diferente" `<>`, "maior que" `>`, "menor que" `<`, "maior ou igual" `>=` e " menor ou igual" `<=`.
+
+Sintaxe:
 
 ```
-if EXPRELACIONAL then BLOCO
+if EXPRESSÃO OPREL EXPRESSÃO then BLOCO
 
 ou
 
-if EXPRELACIONAL then BLOCO else BLOCO
-
-
-Exemplo:
-if idade >= 18 then begin
-  print{'Maior de idade'}
-end else begin
-  print{'Menor de idade'}
-end
+if EXPRESSÃO OPREL EXPRESSÃO then BLOCO else BLOCO
 ```
 
-Estruturas de repetição FOR, sintaxe:
+Exemplo sem else:
+
+```
+idade := 18
+if idade >= 18 then
+    begin
+        print{'Maior de idade'}
+    end
+```
+
+Exemplo com else:
+
+```
+idade := 18
+if idade >= 18 then
+    begin
+        print{'Maior de idade'}
+    end
+ else
+    begin
+        print{'Menor de idade'}
+    end
+```
+
+##### Estruturas de repetição FOR
+O `ident` é usando como um contador, toda vez que o bloco é executado o contador aumenta em um, a repetição para quando a primeira EXPRESSÃO for maior que a segunda.
+
+Sintaxe:
 
 ```
 for ident := EXPRESSAO to EXPRESSAO do BLOCO
@@ -311,14 +335,16 @@ for ident := EXPRESSAO to EXPRESSAO do BLOCO
 Exemplo:
 
 ```
-for i := 0 to 10 do begin
-  i := i + 1;
-  print{i}
-end
+for i := 0 to 10 do
+    begin
+        print{i}
+    end
 ```
 
-Estruturas de repetição WHILE, sintaxe:
+##### Estruturas de repetição WHILE
+Enquanto a EXPRELACIONAL for verdadeira, o BLOCO será executado.
 
+Sintaxe:
 ```
 while EXPRELACIONAL do BLOCO
 ```
@@ -326,12 +352,18 @@ while EXPRELACIONAL do BLOCO
 Exemplo:
 
 ```
-while repetir = 'S' do begin
-  repetir := 'N'
-end
+contador := 1
+while contador <= 10 do
+    begin
+        print{contador}
+        contador := contador + 1
+    end
 ```
 
-Leitura de dados, sintaxe:
+##### Leitura de dados
+Atribui a entrada vinda do usuário para o `ident` dentro dos parentêsis.
+
+Sintaxe:
 
 ```
 read(ident)
@@ -341,6 +373,5 @@ Exemplo:
 
 ```
 var nome : string
-print{'Informe o seu nome'}
 read(nome)
 ```
