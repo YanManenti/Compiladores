@@ -228,6 +228,14 @@ begin
 end
 ```
 
+Exemplo:
+
+```
+begin
+    print{"Hello World!"}
+end
+```
+
 ### Comandos
 Os COMANDOS possibilitam o uso de `print`, estruturas de condição, estruturas de repetição e atribuição para o identificador `ident`.
 
