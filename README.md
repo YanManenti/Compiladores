@@ -1,7 +1,87 @@
 # Compiladores
 **Grupo:** Micael Mendes, Misael Mendes e Yan Manenti.
 
-`ident` = Identificador/Nome escolhido para declaração.
+## Terminais Codificados
+
+| Cód | Token    |
+|-----|---------|
+| 1   | while   |
+| 2   | var     |
+| 3   | to      |
+| 4   | then    |
+| 5   | string  |
+| 6   | real    |
+| 7   | read    |
+| 8   | program |
+| 9  | procedure |
+| 10  | print   |
+| 11  | nreal   |
+| 12  | nint     |
+| 13  | literal |
+| 14  | integer |
+| 15  | if      |
+| 16  | ident   |
+| 17  | for     |
+| 18  | end      |
+| 19  | else    |
+| 20  | do    |
+| 21  | const   |
+| 22  | begin   |
+| 23  | vstring |
+| 24  | >=      |
+| 25  | >     |
+| 26  | =      |
+| 27  | <>       |
+| 28  | <=       |
+| 29  | <       |
+| 30  | +       |
+| 31  | ;       |
+| 32  | :=       |
+| 33  | :      |
+| 34  | /       |
+| 35  | .       |
+| 36  | ,       |
+| 37  | *       |
+| 38  | )       |
+| 39  | (       |
+| 40  | {       |
+| 41  | }       |
+| 42  | -       |
+| 43  | $       |
+| 44  | î       |
+
+## Não-terminais Codificados
+
+| Cód | Símbolos         |
+|-----|------------------|
+| 45  | PROGRAMA         |
+| 46  | DECLARACOES      |
+| 47  | BLOCO           |
+| 48  | CONSTANTES      |
+| 49  | VARIAVEIS       |
+| 50  | PROCEDIMENTOS   |
+| 51  | COMANDOS        |
+| 52  | LISTAVARIAVEIS  |
+| 53  | TIPO   |
+| 54  | LDVAR            |
+| 55  | REPIDENT           |
+| 56  | PARAMETROS           |
+| 57  | REPPARAMETROS      |
+| 58  | COMANDO   |
+| 59  | ITEMSAIDA         |
+| 60  | REPITEM         |
+| 61  | EXPRESSAO         |
+| 62  | TERMO       |
+| 63  | EXPR           |
+| 64  | FATOR            |
+| 65  | TER           |
+| 66  | EXPRELACIONAL      |
+| 67  | ELSEOPC           |
+| 68  | OPREL     |
+| 69  | CHAMADAPROC           |
+| 70  | LISTAPARAMETROS     |
+| 71  | PAR             |
+| 72  | REPPAR          |
 
 ### Comentários
 Comentários são usados para ajudar na compreemsão do código. Comentários em linha serão iniciados por dois sinais numéricos `#`, e comentários de bloco (englobam várias linhas) por um sinal numérico seguido por um asterisco `*`. 
@@ -241,6 +321,9 @@ if idade >= 18 then
         print{'Menor de idade'}
     end
 ```
+
+##### Estruturas de repetição FOR
+O `ident` é usando como um contador, toda vez que o bloco é executado o contador aumenta em um, a repetição para quando a primeira EXPRESSÃO for maior que a segunda.
 
 #### Estruturas de repetição FOR
 O identificador `ident` é usando como um contador, toda vez que o bloco é executado o contador aumenta em um, a repetição para quando o contador for maior que a segunda EXPRESSÃO.
