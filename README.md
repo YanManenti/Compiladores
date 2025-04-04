@@ -1,7 +1,87 @@
 # Compiladores
 **Grupo:** Micael Mendes, Misael Mendes e Yan Manenti.
 
-`ident` = Identificador/Nome escolhido para declaração.
+## Terminais Codificados
+
+| Cód | Token    |
+|-----|---------|
+| 1   | while   |
+| 2   | var     |
+| 3   | to      |
+| 4   | then    |
+| 5   | string  |
+| 6   | real    |
+| 7   | read    |
+| 8   | program |
+| 9  | procedure |
+| 10  | print   |
+| 11  | nreal   |
+| 12  | nint     |
+| 13  | literal |
+| 14  | integer |
+| 15  | if      |
+| 16  | ident   |
+| 17  | for     |
+| 18  | end      |
+| 19  | else    |
+| 20  | do    |
+| 21  | const   |
+| 22  | begin   |
+| 23  | vstring |
+| 24  | >=      |
+| 25  | >     |
+| 26  | =      |
+| 27  | <>       |
+| 28  | <=       |
+| 29  | <       |
+| 30  | +       |
+| 31  | ;       |
+| 32  | :=       |
+| 33  | :      |
+| 34  | /       |
+| 35  | .       |
+| 36  | ,       |
+| 37  | *       |
+| 38  | )       |
+| 39  | (       |
+| 40  | {       |
+| 41  | }       |
+| 42  | -       |
+| 43  | $       |
+| 44  | î       |
+
+## Não-terminais Codificados
+
+| Cód | Símbolos         |
+|-----|------------------|
+| 45  | PROGRAMA         |
+| 46  | DECLARACOES      |
+| 47  | BLOCO           |
+| 48  | CONSTANTES      |
+| 49  | VARIAVEIS       |
+| 50  | PROCEDIMENTOS   |
+| 51  | COMANDOS        |
+| 52  | LISTAVARIAVEIS  |
+| 53  | TIPO   |
+| 54  | LDVAR            |
+| 55  | REPIDENT           |
+| 56  | PARAMETROS           |
+| 57  | REPPARAMETROS      |
+| 58  | COMANDO   |
+| 59  | ITEMSAIDA         |
+| 60  | REPITEM         |
+| 61  | EXPRESSAO         |
+| 62  | TERMO       |
+| 63  | EXPR           |
+| 64  | FATOR            |
+| 65  | TER           |
+| 66  | EXPRELACIONAL      |
+| 67  | ELSEOPC           |
+| 68  | OPREL     |
+| 69  | CHAMADAPROC           |
+| 70  | LISTAPARAMETROS     |
+| 71  | PAR             |
+| 72  | REPPAR          |
 
 ### Comentários
 Comentários são usados para ajudar na compreemsão do código. Comentários em linha serão iniciados por dois sinais numéricos `#`, e comentários de bloco (englobam várias linhas) por um sinal numérico seguido por um asterisco `*`. 
@@ -32,8 +112,10 @@ program ident ; DECLARAÇÕES BLOCO .
 Exemplos:
 
 ```
-program meuPrograma ; 
-    print{"Hello World!"}
+program meuPrograma ;
+    begin
+        print{"Hello World!"}
+    end
 .
 ```
 
@@ -148,6 +230,14 @@ begin
 end
 ```
 
+Exemplo:
+
+```
+begin
+    print{"Hello World!"}
+end
+```
+
 ### Comandos
 Os COMANDOS possibilitam o uso de `print`, estruturas de condição, estruturas de repetição e atribuição para o identificador `ident`.
 
@@ -199,7 +289,7 @@ print{ITEMSAIDA}
 Exemplo:
 
 ```
-print{'Olá mundo!'}
+print{"Hello World!"}
 ```
 
 #### Estruturas de condição
@@ -224,7 +314,7 @@ Exemplo sem else:
 idade := 18
 if idade >= 18 then
     begin
-        print{'Maior de idade'}
+        print{"Maior de idade"}
     end
 ```
 
@@ -234,11 +324,11 @@ Exemplo com else:
 idade := 18
 if idade >= 18 then
     begin
-        print{'Maior de idade'}
+        print{"Maior de idade"}
     end
  else
     begin
-        print{'Menor de idade'}
+        print{"Menor de idade"}
     end
 ```
 
@@ -300,9 +390,8 @@ read(nome)
 1. Dados do tipo `integer` aceitam números de -20000000000 até 20000000000.
 2. Dados do tipo `real` aceitam números de -20000000000.00 até 20000000000.00. Se a parte decimal for diferente de 0, deve conter duas casas depois de um ponto `.`.
 3. Dados do tipo `string` aceitam um único ou uma cadeia de caracteres dentro de aspas duplas `"`.
-4. Dados do tipo `literal` aceitam os outros tipos de dado do programa, podem ser escritos diretamente no código sem nenhuma pontuação adiional.
+4. Dados do tipo `literal` aceitam os outros tipos de dado do programa, podem ser escritos diretamente no código sem nenhuma pontuação adicional.
 5. Identificadores `ident` não podem conter caracteres especiais, espaços ou iniciar com números, devem ter no máximo 50 caracteres.
-6. Comentários de linha devem começar usando `##` e comentários com mais de uma linha devem começar com `#*` e terminar com `*#`.
 
 # Erros Léxicos
 
@@ -310,4 +399,4 @@ read(nome)
 2. Dados do tipo `real` maiores que 20000000000 ou menores que -20000000000, ou que usam um símbolo diferente de `.` para marcar a parte decimal.
 3. Dados do tipo `string` que não usam aspas duplas `"` no começo, fim ou ambos.
 4. Identificadores que contenham caracteres especiais, iniciam com números, contenham espaços ou mais de 50 caracteres.
-5. Comentários de linha que não começem com `##` e comentário com mais de uma linha que não começem com `#*`, não terminem com `*#` ou ambos.
+5. Escrever alguma palavra reservada com letra maiúscula.
