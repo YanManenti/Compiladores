@@ -1,5 +1,5 @@
 program meuPrograma( variavel1, variavel2 35) ;
-var asd;
+var asd:=5;
     begin
         print{"Hello World!"}
     end

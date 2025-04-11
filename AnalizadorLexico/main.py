@@ -1,8 +1,8 @@
 import numpy as np
 
 # entrada, geralmente vem de um arquivo texto
-palavra = open("code.txt", "r").read()
-
+palavra = list(open("code.txt", "r").read())
+print(palavra)
 # variavel para armazenar o lexema
 lexema = ''
 
@@ -63,22 +63,22 @@ lista = [">","=","<","+",";",":","/",".",",","*",")","(","{","}","-"," ","#",'"'
 
 listaMultiplos = [">=","<>","<=",":=""##","#*","*#"]
 
-def singleSimbolo(texto0,texto1):
-    if texto0 is None:
+def singleSimbolo(currentI,currentChar,nextChar):
+    if currentChar is None:
         return False
-    if texto0 not in lista:
-        return texto0
-    if texto0 in lista and texto1 is None:
-        return dicionario[texto0]
-    if texto0 in lista and texto0+texto1 not in listaMultiplos:
-        return dicionario[texto0]
-    if texto0+texto1 in listaMultiplos:
-        return dicionario[texto0+texto1]
+    if currentChar not in lista:
+        return currentChar
+    if currentChar in lista and nextChar is None:
+        return dicionario[currentChar]
+    if currentChar in lista and currentChar+nextChar not in listaMultiplos:
+        return dicionario[currentChar]
+    if currentChar+nextChar in listaMultiplos:
+        return dicionario[currentChar+nextChar]
     else:
-        return dicionario[texto0]
+        return dicionario[currentChar]
 
 
-
+stringStatus = False
 for i in range(len(palavra)):
     # if palavra[i] in lista:
     #     lexema = palavra[i]
@@ -93,10 +93,10 @@ for i in range(len(palavra)):
     #     lexema += palavra[i]
 
     ####
-    if palavra[i] in lista:
+    if palavra[i] in lista and stringStatus is False:
         lexema = palavra[i]
     if dicionario.get(lexema) is None:
-        if palavra[i] != " ":
+        if palavra[i] != " " and stringStatus is False:
             lexema = lexema + palavra[i]
     # else:
     #     lexema = ""
@@ -109,20 +109,35 @@ for i in range(len(palavra)):
         nextChar = i
 
     dictCode = dicionario.get(lexema)
+
     if lexema == " " or lexema == "" or lexema == "\n":
-        lexema = ""
+        if stringStatus is False:
+            lexema = ""
     else:
-        if dictCode is not None and (palavra[nextChar] is None or palavra[nextChar] is not None and (palavra[nextChar] in lista or palavra[nextChar] == " ")):
+        if palavra[i] == '"' or stringStatus is True:
+            if palavra[i] == '"' and stringStatus is True:
+                lexema = lexema + palavra[i]
+                stringStatus = False
+                tokens.append(dicionario["string"])
+                lexemas.append(lexema)
+                print(dicionario["string"])
+                lexema = ""
+            else:
+                stringStatus = True
+                if palavra[i] != '"':
+                    lexema = lexema + palavra[i]
+
+        elif dictCode is not None and (palavra[nextChar] is None or palavra[nextChar] is not None and (palavra[nextChar] in lista or palavra[nextChar] == " ")):
                 tokens.append(dictCode)
                 print(dictCode)
                 lexemas.append(lexema)
                 lexema = ""
-        if dictCode is not None and palavra[nextChar] is not None and (palavra[nextChar] not in lista):
+        elif dictCode is not None and palavra[nextChar] is not None and (palavra[nextChar] not in lista):
                 tokens.append(dictCode)
                 print(dictCode)
                 lexemas.append(lexema)
                 lexema = ""
-        if dictCode is None and palavra[nextChar] is not None and (palavra[nextChar] in lista or palavra[nextChar] == " "):
+        elif dictCode is None and palavra[nextChar] is not None and (palavra[nextChar] in lista or palavra[nextChar] == " "):
                 tokens.append(dicionario["ident"])
                 print(dicionario["ident"])
                 lexemas.append(lexema)
