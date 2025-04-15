@@ -1,15 +1,7 @@
-import numpy as np
+import re
 
-# entrada, geralmente vem de um arquivo texto
-palavra = list(open("code.txt", "r").read())
-print(palavra)
-# variavel para armazenar o lexema
-lexema = ''
-
-# variavel para armazenar a lista de tokes (que ira alimentar o sintatico)
-tokens = []
-lexemas = []
-dicionario = {
+# Reserved dictionary
+TOKEN_DICT = {
     "while":1,
     "var":2,
     "to":3,
@@ -20,8 +12,6 @@ dicionario = {
     "program":8,
     "procedure":9,
     "print":10,
-    #"nreal":11,
-    #"nint":12,
     "literal":13,
     "integer":14,
     "if":15,
@@ -32,7 +22,6 @@ dicionario = {
     "do":20,
     "const":21,
     "begin":22,
-    #"vstring":23,
     ">=":24,
     ">":25,
     "=":26,
@@ -59,93 +48,99 @@ dicionario = {
     '"':47
 }
 
-lista = [">","=","<","+",";",":","/",".",",","*",")","(","{","}","-"," ","#",'"']
+# Token regex patterns
+TOKEN_REGEX = [
+    (r'##.*', None),  # single-line comment
+    (r'#\*.*?\*#', None),  # multi-line comment
+    (r'\".*?\"', 'string'),
+    (r'\'.*?\'', 'literal'),
+    (r'\d*[a-zA-Z_]\w*', 'ident'),  # moved before integer
+    (r'\d+\.\d+', 'real'),
+    (r'\d+', 'integer'),
+    (r'>=|<=|<>|:=|[+\-*/=<>;:.,(){}]', None),
+    (r'\s+', None)
+]
 
-listaMultiplos = [">=","<>","<=",":=""##","#*","*#"]
+def lexicalRules(type,strValue,line):
+    if type == TOKEN_DICT['integer']:
+        value = int(strValue)
+        if value < -20000000000:
+            print(f"Erro Léxico: Integer menor que -20000000000, linha {line}.")
+        if value > 20000000000:
+            print(f"Erro Léxico: Integer maior que 20000000000, linha {line}.")
+    if type == TOKEN_DICT['real']:
+        value = float(strValue)
+        if value < -20000000000.00:
+            print(f"Erro Léxico: Real menor que -20000000000, linha {line}.")
+        if value > 20000000000.00:
+            print(f"Erro Léxico: Real maior que 20000000000, linha {line}.")
+    if type == TOKEN_DICT['string']:
+        value = strValue
+        if value[0] != '"' and value[-1] != '"':
+            print(f"Erro Léxico: String não está encapsulado com aspas duplas (\"), linha {line}.")
+    if type == TOKEN_DICT['literal']:
+        value = strValue
+        if value[0] != "'" and value[-1] != "'":
+            print(f"Erro Léxico: Literal não está encapsulada com aspas simples (\'), linha {line}.")
+    if type == TOKEN_DICT['ident']:
+        value = strValue
+        regexNumbers = re.compile(r'[0-9]')
+        match = regexNumbers.match(value)
+        if match:
+            print(f"Erro Léxico: Ident possui números no inicío, linha {line}.")
+        regexCaracteres = re.compile('[^a-zA-Z0-9]')
+        match = regexCaracteres.match(value)
+        if match:
+            print(f"Erro Léxico: Ident possui caracteres especiais, linha {line}.")
+        regexLength = re.compile(r'.{51,}')
+        match = regexLength.match(value)
+        if match:
+            print(f"Erro Léxico: Ident possui mais de 50 caracteres, linha {line}.")
 
-def singleSimbolo(currentI,currentChar,nextChar):
-    if currentChar is None:
-        return False
-    if currentChar not in lista:
-        return currentChar
-    if currentChar in lista and nextChar is None:
-        return dicionario[currentChar]
-    if currentChar in lista and currentChar+nextChar not in listaMultiplos:
-        return dicionario[currentChar]
-    if currentChar+nextChar in listaMultiplos:
-        return dicionario[currentChar+nextChar]
-    else:
-        return dicionario[currentChar]
+def tokenize(code):
+    lines = [0]
+    tokenList = []
+    position = 0
 
+    while position < len(code):
+        if code[position] == '\n':
+            lines.append(position)
+        match = None
+        for pattern, type_hint in TOKEN_REGEX:
+            regex = re.compile(pattern)
+            match = regex.match(code, position)
+            if match:
+                value = match.group(0)
+                if type_hint:  # It's a literal, ident, etc.
+                    token_type = TOKEN_DICT.get(value, TOKEN_DICT.get(type_hint))
+                    if not token_type:
+                        token_type = TOKEN_DICT.get(type_hint)
+                    if token_type is None:
+                        raise TypeError(f"Tipo de token não encontrado para valor: {value}")
+                    lexicalRules(token_type, value, len(lines))
+                else:  # Reserved word or symbol
+                    token_type = TOKEN_DICT.get(value)
+                    # if not token_type and value.strip():  # maybe identifier
+                    #     token_type = TOKEN_DICT.get('ident')
+                    if not token_type and value.strip():
+                        print(f"DEBUG: Failed to get token_type for value={value}, pattern={pattern}")
+                        raise TypeError("Tipo de token não encontrado.")
+                if token_type:
+                    tokenList.append((value, token_type))
+                break
+        if not match:
+            raise SyntaxError(f"Token desconhecido: {code[position:position]}")
+        else:
+            position = match.end()
+    return tokenList
 
-stringStatus = False
-for i in range(len(palavra)):
-    # if palavra[i] in lista:
-    #     lexema = palavra[i]
-    # elif palavra[i] != " ":
-    #     lexema = lexema + palavra[i]
-    # else:
-    #     lexema = ""
+# Read source file
+with open('code.txt', 'r') as f:
+    source_code = f.read()
 
-    ####
-    # simbolo = singleSimbolo(palavra[i],palavra[i])
-    # if simbolo is not False:
-    #     lexema += palavra[i]
+# Lexical analysis
+tokens = tokenize(source_code)
 
-    ####
-    if palavra[i] in lista and stringStatus is False:
-        lexema = palavra[i]
-    if dicionario.get(lexema) is None:
-        if palavra[i] != " " and stringStatus is False:
-            lexema = lexema + palavra[i]
-    # else:
-    #     lexema = ""
-
-    print(lexema)  # print opcional para ver o andamento
-
-    if i != len(palavra)-1:
-        nextChar = i + 1
-    else:
-        nextChar = i
-
-    dictCode = dicionario.get(lexema)
-
-    if lexema == " " or lexema == "" or lexema == "\n":
-        if stringStatus is False:
-            lexema = ""
-    else:
-        if palavra[i] == '"' or stringStatus is True:
-            if palavra[i] == '"' and stringStatus is True:
-                lexema = lexema + palavra[i]
-                stringStatus = False
-                tokens.append(dicionario["string"])
-                lexemas.append(lexema)
-                print(dicionario["string"])
-                lexema = ""
-            else:
-                stringStatus = True
-                if palavra[i] != '"':
-                    lexema = lexema + palavra[i]
-
-        elif dictCode is not None and (palavra[nextChar] is None or palavra[nextChar] is not None and (palavra[nextChar] in lista or palavra[nextChar] == " ")):
-                tokens.append(dictCode)
-                print(dictCode)
-                lexemas.append(lexema)
-                lexema = ""
-        elif dictCode is not None and palavra[nextChar] is not None and (palavra[nextChar] not in lista):
-                tokens.append(dictCode)
-                print(dictCode)
-                lexemas.append(lexema)
-                lexema = ""
-        elif dictCode is None and palavra[nextChar] is not None and (palavra[nextChar] in lista or palavra[nextChar] == " "):
-                tokens.append(dicionario["ident"])
-                print(dicionario["ident"])
-                lexemas.append(lexema)
-
-# Entrega do lexico - token - lexema - linha
-for i in range(0, len(tokens)):
-    print('Token: ' + str(tokens[i]) + ' - Lexema: ' + str(lexemas[i]) + ' - Linha: 1')
-
-# salvar do lexico para entregar para o sintático
-tokens = np.array(tokens)  # converte lista do python para numpy array
-
+# Output
+for token in tokens:
+    print(token)

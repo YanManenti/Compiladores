@@ -1,5 +1,9 @@
 program meuPrograma( variavel1, variavel2 35) ;
 var asd:=5;
+var asd_2:='10';
+var 123asd3:=20000000001;
+var asdhpsojnghfhasdhasdhasdghasdgfhpijsnghsoijpghnsopijngh3:=20000000001.00;
+const asd4:="qualquer coisa";
     begin
         print{"Hello World!"}
     end
