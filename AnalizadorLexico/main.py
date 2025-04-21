@@ -1,4 +1,5 @@
 import re
+import pathlib
 
 # Reserved dictionary
 TOKEN_DICT = {
@@ -44,7 +45,6 @@ TOKEN_DICT = {
     "##":43,
     "#*":44,
     "*#":45,
-    "\n":46,
     '"':47
 }
 
@@ -98,13 +98,13 @@ def lexicalRules(type,strValue,line):
             print(f"Erro Léxico: Ident possui mais de 50 caracteres, linha {line}.")
 
 def tokenize(code):
-    lines = [0]
+    lines = 1
     tokenList = []
     position = 0
 
     while position < len(code):
         if code[position] == '\n':
-            lines.append(position)
+            lines+=1
         match = None
         for pattern, type_hint in TOKEN_REGEX:
             regex = re.compile(pattern)
@@ -117,7 +117,7 @@ def tokenize(code):
                         token_type = TOKEN_DICT.get(type_hint)
                     if token_type is None:
                         raise TypeError(f"Tipo de token não encontrado para valor: {value}")
-                    lexicalRules(token_type, value, len(lines))
+                    lexicalRules(token_type, value, lines)
                 else:  # Reserved word or symbol
                     token_type = TOKEN_DICT.get(value)
                     # if not token_type and value.strip():  # maybe identifier
@@ -126,7 +126,7 @@ def tokenize(code):
                         print(f"DEBUG: Failed to get token_type for value={value}, pattern={pattern}")
                         raise TypeError("Tipo de token não encontrado.")
                 if token_type:
-                    tokenList.append((value, token_type))
+                    tokenList.append((value, token_type, lines))
                 break
         if not match:
             raise SyntaxError(f"Token desconhecido: {code[position:position]}")
@@ -134,13 +134,26 @@ def tokenize(code):
             position = match.end()
     return tokenList
 
-# Read source file
-with open('code.txt', 'r') as f:
-    source_code = f.read()
 
-# Lexical analysis
-tokens = tokenize(source_code)
 
-# Output
-for token in tokens:
-    print(token)
+def lexicalAnalyzer(filePath):
+
+    print(f"\n-------------- Analizador Léxico para o arquivo {txt_file.name} --------------\n")
+
+    # Read source file
+    with open(filePath, 'r') as f:
+        source_code = f.read()
+
+    # Lexical analysis
+    tokens = tokenize(source_code)
+
+    print()
+
+    # Output
+    for token in tokens:
+        print(f"Token: {token[0]:>15} - Código: {token[1]:1} - Linha: {token[2]:1}")
+
+
+path = './code/'
+for txt_file in pathlib.Path(path).glob('*.txt'):
+    lexicalAnalyzer(path+txt_file.name)
