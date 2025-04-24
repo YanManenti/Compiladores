@@ -62,26 +62,46 @@ TOKEN_REGEX = [
 ]
 
 def lexicalRules(type,strValue,line):
-    if type == TOKEN_DICT['integer']:
-        value = int(strValue)
-        if value < -20000000000:
-            print(f"Erro Léxico: Integer menor que -20000000000, linha {line}.")
-        if value > 20000000000:
-            print(f"Erro Léxico: Integer maior que 20000000000, linha {line}.")
-    if type == TOKEN_DICT['real']:
-        value = float(strValue)
-        if value < -20000000000.00:
-            print(f"Erro Léxico: Real menor que -20000000000, linha {line}.")
-        if value > 20000000000.00:
-            print(f"Erro Léxico: Real maior que 20000000000, linha {line}.")
+    # if type == TOKEN_DICT['integer']:
+    #     value = int(strValue)
+    #     if value < -20000000000:
+    #         print(f"Erro Léxico: Integer menor que -20000000000, linha {line}.")
+    #     if value > 20000000000:
+    #         print(f"Erro Léxico: Integer maior que 20000000000, linha {line}.")
+    # if type == TOKEN_DICT['real']:
+    #     value = float(strValue)
+    #     if value < -20000000000.00:
+    #         print(f"Erro Léxico: Real menor que -20000000000, linha {line}.")
+    #     if value > 20000000000.00:
+    #         print(f"Erro Léxico: Real maior que 20000000000, linha {line}.")
     if type == TOKEN_DICT['string']:
         value = strValue
         if value[0] != '"' and value[-1] != '"':
             print(f"Erro Léxico: String não está encapsulado com aspas duplas (\"), linha {line}.")
     if type == TOKEN_DICT['literal']:
+        print('valor',strValue)
         value = strValue
+        print('value',value)
         if value[0] != "'" and value[-1] != "'":
             print(f"Erro Léxico: Literal não está encapsulada com aspas simples (\'), linha {line}.")
+        else:
+            inner_value = value[1:-1]
+            if re.fullmatch(r'\d+\.\d+', inner_value):  # valor real
+                float_val = float(inner_value)
+                if float_val < -20000000000.00:
+                    print(f"Erro Léxico: Real menor que -20000000000, linha {line}.")
+                if float_val > 20000000000.00:
+                    print(f"Erro Léxico: Real maior que 20000000000, linha {line}.")
+            elif re.fullmatch(r'\d+', inner_value):  # valor inteiro
+                int_val = int(inner_value)
+                if int_val < -20000000000:
+                    print(f"Erro Léxico: Integer menor que -20000000000, linha {line}.")
+                if int_val > 20000000000:
+                    print(f"Erro Léxico: Integer maior que 20000000000, linha {line}.")
+            elif re.search(r'[a-zA-Z]', inner_value):
+                pass  # é um literal do tipo texto, pode deixar passar ou validar outra coisa
+            else:
+                print(f"Erro Léxico: Literal contém formato inválido, linha {line}.")
     if type == TOKEN_DICT['ident']:
         value = strValue
         regexNumbers = re.compile(r'[0-9]')
@@ -117,6 +137,7 @@ def tokenize(code):
                         token_type = TOKEN_DICT.get(type_hint)
                     if token_type is None:
                         raise TypeError(f"Tipo de token não encontrado para valor: {value}")
+                    print('token',token_type)
                     lexicalRules(token_type, value, len(lines))
                 else:  # Reserved word or symbol
                     token_type = TOKEN_DICT.get(value)
@@ -135,7 +156,7 @@ def tokenize(code):
     return tokenList
 
 # Read source file
-with open('code.txt', 'r') as f:
+with open('Ex.txt', 'r') as f:
     source_code = f.read()
 
 # Lexical analysis
