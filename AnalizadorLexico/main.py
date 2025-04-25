@@ -48,34 +48,30 @@ TOKEN_DICT = {
     '"':47
 }
 
-# Token regex patterns
-TOKEN_REGEX = [
-    (r'##.*', None),  # single-line comment
-    (r'#\*.*?\*#', None),  # multi-line comment
-    (r'\".*?\"', 'string'),
-    (r'\'.*?\'', 'literal'),
-    (r'\d*[a-zA-Z_]\w*', 'ident'),  # moved before integer
-    (r'\d+\.\d+', 'real'),
-    (r'\d+', 'integer'),
-    (r'>=|<=|<>|:=|[+\-*/=<>;:.,(){}]', None),
-    (r'\s+', None)
-]
-
 def lexicalRules(type,strValue,line):
     if type == TOKEN_DICT['integer']:
-        value = int(strValue)
-        if value < -20000000000:
-            print(f"Erro Léxico: Integer menor que -20000000000, linha {line}.")
-        if value > 20000000000:
-            print(f"Erro Léxico: Integer maior que 20000000000, linha {line}.")
+        try:
+            value = int(strValue)
+            if value < -20000000000:
+                print(f"Erro Léxico: Integer menor que -20000000000, linha {line}.")
+            if value > 20000000000:
+                print(f"Erro Léxico: Integer maior que 20000000000, linha {line}.")
+        except:
+            return
+
     if type == TOKEN_DICT['real']:
-        value = float(strValue)
-        if value < -20000000000.00:
-            print(f"Erro Léxico: Real menor que -20000000000, linha {line}.")
-        if value > 20000000000.00:
-            print(f"Erro Léxico: Real maior que 20000000000, linha {line}.")
+        try:
+            value = float(strValue)
+            if value < -20000000000.00:
+                print(f"Erro Léxico: Real menor que -20000000000.00, linha {line}.")
+            if value > 20000000000.00:
+                print(f"Erro Léxico: Real maior que 20000000000.00, linha {line}.")
+        except:
+            return
     if type == TOKEN_DICT['string']:
         value = strValue
+        if value == "string":
+            return
         if value[0] != '"' and value[-1] != '"':
             print(f"Erro Léxico: String não está encapsulado com aspas duplas (\"), linha {line}.")
     if type == TOKEN_DICT['literal']:
@@ -97,20 +93,63 @@ def lexicalRules(type,strValue,line):
         if match:
             print(f"Erro Léxico: Ident possui mais de 50 caracteres, linha {line}.")
 
+
+# Token regex patterns
+TOKEN_REGEX = [
+    (r'##', '##'),                     # comentário de linha
+    (r'#\*', '#*'),                    # início de comentário de bloco
+    (r'\*#', '*#'),                    # fim de comentário de bloco
+    (r'\".*?\"', 'string'),
+    (r'\'.*?\'', 'literal'),
+    (r'\d*[a-zA-Z_]\w*', 'ident'),
+    (r'\d+\.\d+', 'real'),
+    (r'\d+', 'integer'),
+    (r'>=|<=|<>|:=|[+\-*/=<>;:.,(){}]', None),
+    (r'\s+', None)
+]
+
 def tokenize(code):
     lines = 1
     tokenList = []
     position = 0
 
     while position < len(code):
-        if code[position] == '\n':
-            lines+=1
         match = None
         for pattern, type_hint in TOKEN_REGEX:
             regex = re.compile(pattern)
             match = regex.match(code, position)
             if match:
                 value = match.group(0)
+
+                # Trata token #* e *#
+                if value == '#*':
+                    token_type = TOKEN_DICT.get(value)
+                    tokenList.append((value, token_type, lines))
+
+                    end_comment = code.find('*#', match.end())
+                    if end_comment == -1:
+                        raise SyntaxError(f"Comentário de bloco iniciado na linha {lines} sem fechamento '*#'.")
+
+                    comment_content = code[match.end():end_comment]
+                    lines += comment_content.count('\n')
+
+                    tokenList.append(('*#', TOKEN_DICT['*#'], lines))
+                    position = end_comment + 2
+                    continue
+
+                # Trata token ##
+                if value == '##':
+                    token_type = TOKEN_DICT.get(value)
+                    tokenList.append((value, token_type, lines))
+
+                    end_of_line = code.find('\n', match.end())
+                    if end_of_line == -1:
+                        position = len(code)
+                    else:
+                        position = end_of_line + 1
+                        lines += 1
+                    continue
+
                 if type_hint:  # It's a literal, ident, etc.
                     token_type = TOKEN_DICT.get(value, TOKEN_DICT.get(type_hint))
                     if not token_type:
@@ -129,19 +168,19 @@ def tokenize(code):
                     tokenList.append((value, token_type, lines))
                 break
         if not match:
-            raise SyntaxError(f"Token desconhecido: {code[position:position]}")
+            raise SyntaxError(f"Token desconhecido: {code[position]}")
         else:
+            lines += code[position:match.end()].count('\n')
             position = match.end()
+
     return tokenList
-
-
 
 def lexicalAnalyzer(filePath):
 
     print(f"\n-------------- Analizador Léxico para o arquivo {txt_file.name} --------------\n")
 
     # Read source file
-    with open(filePath, 'r') as f:
+    with open(filePath, 'r', encoding='utf-8') as f:
         source_code = f.read()
 
     # Lexical analysis
@@ -151,9 +190,9 @@ def lexicalAnalyzer(filePath):
 
     # Output
     for token in tokens:
-        print(f"Token: {token[0]:>15} - Código: {token[1]:1} - Linha: {token[2]:1}")
+        print(f"Token: {token[0]:>15} - Código: {token[1]:2} - Linha: {token[2]:2}")
 
 
-path = './code/'
+path = 'codes/'
 for txt_file in pathlib.Path(path).glob('*.txt'):
     lexicalAnalyzer(path+txt_file.name)
