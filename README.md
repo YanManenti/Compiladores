@@ -134,12 +134,12 @@ const ident = nint;
 Exemplos:
 
 ```
-const minhaVariavel = 1;const minhaVariavel2 = 2;
+const minhaVariavel = '1';const minhaVariavel2 = '2';
 ```
 
 ```
-const idade1 = 18;
-const idade2 = 50;
+const idade1 = '18';
+const idade2 = '50';
 ```
 
 ### Variáveis
@@ -215,9 +215,9 @@ if EXPRESSÃO <> EXPRESSÃO then
 Exemplo:
 
 ```
-soma := 1 + 1 ;
-saldo := 100.00 - 8.50 ;
-contador := contador + 1 ;
+soma := '1' + '1' ;
+saldo := '100.00' - '8.50' ;
+contador := contador + '1' ;
 ```
 
 ### Blocos
@@ -252,7 +252,7 @@ ident := EXPRESSÃO
 Exemplo:
 
 ```
-mediaNotas := (nota1 + nota2 + nota3) / 3
+mediaNotas := (nota1 + nota2 + nota3) / '3'
 ```
 
 #### Chamada de procedimentos
@@ -270,9 +270,9 @@ Exemplo:
 
 ```
 begin
-    nota1 := 8.3
-    nota2 := 5.2
-    nota3 := 6.7
+    nota1 := '8.3'
+    nota2 := '5.2'
+    nota3 := '6.7'
     calculoMedia(nota1, nota2, nota3)
 end
 ```
@@ -311,8 +311,8 @@ if EXPRESSÃO OPREL EXPRESSÃO then BLOCO else BLOCO
 Exemplo sem else:
 
 ```
-idade := 18
-if idade >= 18 then
+idade := '18'
+if idade >= '18' then
     begin
         print{"Maior de idade"}
     end
@@ -321,8 +321,8 @@ if idade >= 18 then
 Exemplo com else:
 
 ```
-idade := 18
-if idade >= 18 then
+idade := '18'
+if idade >= '18' then
     begin
         print{"Maior de idade"}
     end
@@ -344,7 +344,7 @@ for ident := EXPRESSAO to EXPRESSAO do BLOCO
 Exemplo:
 
 ```
-for i := 0 to 10 do
+for i := '0' to '10' do
     begin
         print{i}
     end
@@ -361,11 +361,11 @@ while EXPRELACIONAL do BLOCO
 Exemplo:
 
 ```
-contador := 1
-while contador <= 10 do
+contador := '1'
+while contador <= '10' do
     begin
         print{contador}
-        contador := contador + 1
+        contador := contador + '1'
     end
 ```
 
@@ -390,7 +390,7 @@ read(nome)
 1. Dados do tipo `integer` aceitam números de -20000000000 até 20000000000.
 2. Dados do tipo `real` aceitam números de -20000000000.00 até 20000000000.00. Se a parte decimal for diferente de 0, deve conter duas casas depois de um ponto `.`.
 3. Dados do tipo `string` aceitam um único ou uma cadeia de caracteres dentro de aspas duplas `"`.
-4. Dados do tipo `literal` aceitam os outros tipos de dado do programa, podem ser escritos diretamente no código sem nenhuma pontuação adicional.
+4. Dados do tipo `literal` aceitam os outros tipos de dado do programa, podem ser escritos diretamente no código desde que iniciem com aspas simples `'` e terminem com aspas simples `'`.
 5. Identificadores `ident` não podem conter caracteres especiais, espaços ou iniciar com números, devem ter no máximo 50 caracteres.
 
 # Erros Léxicos
@@ -400,3 +400,4 @@ read(nome)
 3. Dados do tipo `string` que não usam aspas duplas `"` no começo, fim ou ambos.
 4. Identificadores que contenham caracteres especiais, iniciam com números, contenham espaços ou mais de 50 caracteres.
 5. Escrever alguma palavra reservada com letra maiúscula.
+6. Literais fora de aspas simples `'`
