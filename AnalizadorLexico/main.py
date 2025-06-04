@@ -1,7 +1,6 @@
 import re
 import pathlib
-from Compiladores.Data.TOKEN_DICT import TOKEN_DICT
-# Reserved dictionary
+from Data.TOKEN_DICT import TOKEN_DICT
 
 
 def lexicalRules(type,strValue,line):
@@ -121,7 +120,9 @@ def tokenize(code):
                         print(f"DEBUG: Failed to get token_type for value={value}, pattern={pattern}")
                         raise TypeError("Tipo de token não encontrado.")
                 if token_type:
-                    tokenList.append((value, token_type, lines))
+                    for key in TOKEN_DICT:
+                        if TOKEN_DICT[key] == token_type:
+                            tokenList.append((key, token_type, lines))
                 break
         if not match:
             raise SyntaxError(f"Token desconhecido: {code[position]}")
@@ -131,24 +132,61 @@ def tokenize(code):
 
     return tokenList
 
+def folderLexicalAnalyzer(filePath):
+
+    for txt_file in pathlib.Path(filePath).glob('*.txt'):
+        print(f"\n-------------- Analizador Léxico para o arquivo {txt_file.name} --------------\n")
+
+        # Read source file
+        with open(filePath+txt_file.name, 'r', encoding='utf-8') as f:
+            source_code = f.read()
+
+        # Lexical analysis
+        tokens = tokenize(source_code)
+
+        print()
+
+        # Output
+        for token in tokens:
+            print(f"Token: {token[0]:>15} - Código: {token[1]:2} - Linha: {token[2]:2}")
+
+folderLexicalAnalyzer('codes/')
+
 def lexicalAnalyzer(filePath):
 
-    print(f"\n-------------- Analizador Léxico para o arquivo {txt_file.name} --------------\n")
-
-    # Read source file
-    with open(filePath, 'r', encoding='utf-8') as f:
-        source_code = f.read()
-
-    # Lexical analysis
-    tokens = tokenize(source_code)
-
-    print()
-
-    # Output
-    for token in tokens:
-        print(f"Token: {token[0]:>15} - Código: {token[1]:2} - Linha: {token[2]:2}")
+        print(f"\n-------------- Mudança de Tokens para o arquivo {filePath} --------------\n")
 
 
-path = 'codes/'
-for txt_file in pathlib.Path(path).glob('*.txt'):
-    lexicalAnalyzer(path+txt_file.name)
+        # Read source file
+        with open(filePath, 'r', encoding='utf-8') as f:
+            source_code = f.read()
+
+        # Lexical analysis
+        tokens = tokenize(source_code)
+
+        # newTokens = []
+        # # Trocando a ordem pq TOKEN_DICT vaid dar problema e eu não vou mudar ele;
+        # for token in tokens:
+        #     for key in TOKEN_DICT:
+        #         if TOKEN_DICT[key] == token[1]:
+        #             print("Hitting TOKEN_DICT[key] == token[1] para {}, com key {}".format(TOKEN_DICT[key], key))
+        #             tempTuple = (key, token[1], token[2])
+        #             print(token)
+        #         else:
+        #             tempTuple= token
+        #
+        # print(newTokens)
+        # Output
+        # for token in tokens:
+        #     print(f"Token: {token[0]:>15} - Código: {token[1]:2} - Linha: {token[2]:2}")
+
+        # Pegando apenas os tokens e depois invertendo a lista.
+        entrada=[]
+        for token in tokens:
+            entrada.append(token[0])
+
+        entrada.reverse()
+
+        return entrada
+
+#lexicalAnalyzer('codes/')

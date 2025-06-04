@@ -1,5 +1,6 @@
-from Compiladores.Data.TOKEN_DICT import TOKEN_DICT
-from Compiladores.Data.NONTERMINAL_DICT import NONTERMINAL_DICT
+from Data.TOKEN_DICT import TOKEN_DICT
+from Data.NONTERMINAL_DICT import NONTERMINAL_DICT
+from Utils.PrintTable import printTable
 
 rows =  max(NONTERMINAL_DICT.values()) + 1
 cols = max(TOKEN_DICT.values()) + 1
@@ -13,7 +14,6 @@ PARSE_TABLE = [[None for _ in range(cols)] for _ in range(rows)]
 # Exemplo: PARSE_TABLE[0][0]=", ) var"
 
 # PARSE_TABLE[NONTERMINAL_DICT["NAO TERM"]][TOKEN_DICT["TOKEN"]] = "REGRA"
-print(PARSE_TABLE)
 #PROGRAMA
 PARSE_TABLE[NONTERMINAL_DICT["PROGRAMA"]][TOKEN_DICT["program"]] = "program ident ; DECLARACOES BLOCO ."
 
@@ -154,4 +154,4 @@ PARSE_TABLE[NONTERMINAL_DICT["REPPAR"]][TOKEN_DICT[","]] = ", PAR REPPAR"
 PARSE_TABLE[NONTERMINAL_DICT["REPPAR"]][TOKEN_DICT[")"]] = "î"
 
 
-print(PARSE_TABLE)
+printTable(PARSE_TABLE)
