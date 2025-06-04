@@ -1,6 +1,6 @@
-from Data.TOKEN_DICT import TOKEN_DICT
-from Data.NONTERMINAL_DICT import NONTERMINAL_DICT
-from Data.PARSE_TABLE import PARSE_TABLE
+from Compiladores.Data.TOKEN_DICT import TOKEN_DICT
+from Compiladores.Data.NONTERMINAL_DICT import NONTERMINAL_DICT
+from Compiladores.Data.PARSE_TABLE import PARSE_TABLE
 
 pilha = ["$"] # Na verdade, é uma lista, utilizar apenas "append" e "pop";
 
