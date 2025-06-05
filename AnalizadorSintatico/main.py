@@ -1,7 +1,7 @@
-from Data.TOKEN_DICT import TOKEN_DICT
-from Data.NONTERMINAL_DICT import NONTERMINAL_DICT
-from Data.PARSE_TABLE import PARSE_TABLE
-from AnalizadorLexico.main import lexicalAnalyzer
+from Compiladores.Data.TOKEN_DICT import TOKEN_DICT
+from Compiladores.Data.NONTERMINAL_DICT import NONTERMINAL_DICT
+from Compiladores.Data.PARSE_TABLE import PARSE_TABLE
+from Compiladores.AnalizadorLexico.main import lexicalAnalyzer
 
 entrada = lexicalAnalyzer("../AnalizadorLexico/codes/code2.txt")
 #print("Entrada: ",entrada)

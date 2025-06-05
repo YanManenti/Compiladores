@@ -1,6 +1,6 @@
 import re
 import pathlib
-from Data.TOKEN_DICT import TOKEN_DICT
+from Compiladores.Data.TOKEN_DICT import TOKEN_DICT
 
 
 def lexicalRules(type,strValue,line):

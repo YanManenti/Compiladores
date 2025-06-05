@@ -1,6 +1,6 @@
-from Data.TOKEN_DICT import TOKEN_DICT
-from Data.NONTERMINAL_DICT import NONTERMINAL_DICT
-from Utils.PrintTable import printTable
+from Compiladores.Data.TOKEN_DICT import TOKEN_DICT
+from Compiladores.Data.NONTERMINAL_DICT import NONTERMINAL_DICT
+from Compiladores.Utils.PrintTable import printTable
 
 rows =  max(NONTERMINAL_DICT.values()) + 1
 cols = max(TOKEN_DICT.values()) + 1
@@ -61,7 +61,7 @@ PARSE_TABLE[NONTERMINAL_DICT["REPPARAMETROS"]][TOKEN_DICT[")"]] = "î"
 #BLOCO
 PARSE_TABLE[NONTERMINAL_DICT["BLOCO"]][TOKEN_DICT["begin"]] = 'begin COMANDOS end'
 
-#COMANDO
+#COMANDOS
 # PARSE_TABLE[NONTERMINAL_DICT["COMANDO"]][TOKEN_DICT["print"]]= "COMANDO ; COMANDOS"
 # PARSE_TABLE[NONTERMINAL_DICT["COMANDO"]][TOKEN_DICT["if"]]= "COMANDO ; COMANDOS"
 # PARSE_TABLE[NONTERMINAL_DICT["COMANDO"]][TOKEN_DICT["ident"]]= "COMANDO ; COMANDOS"
@@ -75,6 +75,7 @@ PARSE_TABLE[NONTERMINAL_DICT["COMANDOS"]][TOKEN_DICT["for"]]= "COMANDO ; COMANDO
 PARSE_TABLE[NONTERMINAL_DICT["COMANDOS"]][TOKEN_DICT["while"]]= "COMANDO ; COMANDOS"
 PARSE_TABLE[NONTERMINAL_DICT["COMANDOS"]][TOKEN_DICT["read"]]= "COMANDO ; COMANDOS"
 
+#COMANDO
 PARSE_TABLE[NONTERMINAL_DICT["COMANDO"]][TOKEN_DICT["end"]] = "î"
 PARSE_TABLE[NONTERMINAL_DICT["COMANDO"]][TOKEN_DICT["print"]] = "print ( ITEMSAIDA REPITEM )"
 PARSE_TABLE[NONTERMINAL_DICT["COMANDO"]][TOKEN_DICT["if"]] = "if EXPRELACIONAL then BLOCO ELSEOPC"
@@ -116,11 +117,17 @@ for tk in [")", ",", "}", "=", "<", ">", "to", "do", "then", ";"]:
     PARSE_TABLE[NONTERMINAL_DICT["EXPR"]][TOKEN_DICT[tk]] = "î"
 
 #TERMO
-PARSE_TABLE[NONTERMINAL_DICT["TERMO"]][TOKEN_DICT["*"]] = "* FATOR TER"
-PARSE_TABLE[NONTERMINAL_DICT["TERMO"]][TOKEN_DICT["/"]] = "/ FATOR TER"
+for tk in ["(", "ident", "nint", "nreal", "literal", "vstring"]:
+    PARSE_TABLE[NONTERMINAL_DICT["TERMO"]][TOKEN_DICT[tk]] = "FATOR TER"
 
 for tk in ["+", "-", ")", ",", "}", "=", "<", ">", "to", "do", "then", ";"]:
     PARSE_TABLE[NONTERMINAL_DICT["TERMO"]][TOKEN_DICT[tk]] = "î"
+
+#TER
+PARSE_TABLE[NONTERMINAL_DICT["TER"]][TOKEN_DICT["*"]] = "* FATOR TER"
+PARSE_TABLE[NONTERMINAL_DICT["TER"]][TOKEN_DICT["/"]] = "/ FATOR TER"
+for tk in ["+", "-", ")", ",", "}", "=", "<", ">", "to", "do", "then", ";"]:
+    PARSE_TABLE[NONTERMINAL_DICT["TER"]][TOKEN_DICT[tk]] = "î"
 
 #FATOR
 # PARSE_TABLE[NONTERMINAL_DICT["FATOR"]][TOKEN_DICT["("]] = "( EXPRESSAO )"
@@ -136,6 +143,7 @@ PARSE_TABLE[NONTERMINAL_DICT["FATOR"]][TOKEN_DICT["real"]] = "real"
 PARSE_TABLE[NONTERMINAL_DICT["FATOR"]][TOKEN_DICT["literal"]] = "literal"
 PARSE_TABLE[NONTERMINAL_DICT["FATOR"]][TOKEN_DICT["string"]] = "string"
 
+#EXPRELACIONAL
 for token in ["(", "ident", "nint", "nreal", "literal", "vstring"]:
     PARSE_TABLE[NONTERMINAL_DICT["EXPRELACIONAL"]][TOKEN_DICT[token]] = "EXPRESSAO OPREL EXPRESSAO"
 
