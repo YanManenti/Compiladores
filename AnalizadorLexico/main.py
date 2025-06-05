@@ -185,8 +185,6 @@ def lexicalAnalyzer(filePath):
         for token in tokens:
             entrada.append(token[0])
 
-        entrada.reverse()
-
         return entrada
 
 #lexicalAnalyzer('codes/')

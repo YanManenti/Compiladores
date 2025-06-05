@@ -1,10 +1,11 @@
-program meuPrograma2( variavel1, variavel2 35) ;
-var asd:=5;
-var asd_2:='10';
-var 123asd3:=20000000001;
-var asdhpsojnghfhasdhasdhasdghasdgfhpijsnghsoijpghnsopijngh3:=20000000001.00;
-const asd4:="qualquer coisa";
+program meuPrograma2 ;
+var asd,asd_2,123asd3:integer;asdhpsojnghfhasdhasdhasdghasdgfhpijsnghsoijpghnsopijngh3:real;
     begin
+        asd:=5;
+        asd_2:='10';
+        123asd3:=20000000001;
+        asdhpsojnghfhasdhasdhasdghasdgfhpijsnghsoijpghnsopijngh3:=20000000001.00;
+        const asd4:="qualquer coisa";
         print{"Hello World!"}
     end
 .
