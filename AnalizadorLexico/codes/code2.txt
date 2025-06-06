@@ -1,11 +1,11 @@
 program meuPrograma2 ;
+const asd4=47;
 var asd,asd_2,123asd3:integer;asdhpsojnghfhasdhasdhasdghasdgfhpijsnghsoijpghnsopijngh3:real;
     begin
         asd:=5;
         asd_2:='10';
         123asd3:=20000000001;
         asdhpsojnghfhasdhasdhasdghasdgfhpijsnghsoijpghnsopijngh3:=20000000001.00;
-        const asd4:="qualquer coisa";
-        print{"Hello World!"}
+        print{"Hello World!"};
     end
 .

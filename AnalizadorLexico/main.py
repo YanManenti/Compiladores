@@ -1,6 +1,6 @@
 import re
 import pathlib
-from Compiladores.Data.TOKEN_DICT import TOKEN_DICT
+from Data.TOKEN_DICT import TOKEN_DICT
 
 
 def lexicalRules(type,strValue,line):
@@ -154,9 +154,6 @@ folderLexicalAnalyzer('codes/')
 
 def lexicalAnalyzer(filePath):
 
-        print(f"\n-------------- Mudança de Tokens para o arquivo {filePath} --------------\n")
-
-
         # Read source file
         with open(filePath, 'r', encoding='utf-8') as f:
             source_code = f.read()
@@ -181,10 +178,10 @@ def lexicalAnalyzer(filePath):
         #     print(f"Token: {token[0]:>15} - Código: {token[1]:2} - Linha: {token[2]:2}")
 
         # Pegando apenas os tokens e depois invertendo a lista.
-        entrada=[]
-        for token in tokens:
-            entrada.append(token[0])
+        # entrada=[]
+        # for token in tokens:
+        #     entrada.append(token[0])
 
-        return entrada
+        return tokens
 
 #lexicalAnalyzer('codes/')

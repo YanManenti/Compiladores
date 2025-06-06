@@ -1,67 +1,68 @@
-from Compiladores.Data.TOKEN_DICT import TOKEN_DICT
-from Compiladores.Data.NONTERMINAL_DICT import NONTERMINAL_DICT
-from Compiladores.Data.PARSE_TABLE import PARSE_TABLE
-from Compiladores.AnalizadorLexico.main import lexicalAnalyzer
+import pathlib
 
-entrada = lexicalAnalyzer("../AnalizadorLexico/codes/code2.txt")
-#print("Entrada: ",entrada)
+from Data.TOKEN_DICT import TOKEN_DICT
+from Data.NONTERMINAL_DICT import NONTERMINAL_DICT
+from Data.PARSE_TABLE import PARSE_TABLE
+from AnalizadorLexico.main import lexicalAnalyzer
 
-pilha = ["$", "PROGRAMA"]  # Exemplo de inicialização
-x = entrada[0]  # Primeiro token da entrada
-i = 0
 
-def handleError(str,errors):
+def handleError(str,pilha):
     if str == "$":
         return False
-    print(f"Erro: símbolo inválido no topo da pilha: {str}")
-    print(f"Removendo {a} do topo da pilha")
+    print(f"ERRO: SÍMBOLO INVÁLIDO NO TOPO DA PILHA: {str}")
+    print(f"REMOVENDO {str} DO TOPO DA PILHA")
     pilha.pop()
     print(f"Pilha: {pilha}")
     return True
 
-while pilha:
-    a = pilha[-1]
+def syntaxAnalizer(folderPath, starter):
+    for txt_file in pathlib.Path(folderPath).glob('*.txt'):
+        print(f"\n-------------- Analizador Sintático para o arquivo {folderPath+txt_file.name} --------------\n")
 
-    if a == x:
-        pilha.pop()
-        print(f"Consumido terminal '{x}' da pilha.")
-        print(f"Pilha: {pilha}")
-        i += 1
-        x = entrada[i] if i < len(entrada) else "$"
+        entrada = lexicalAnalyzer(folderPath+txt_file.name)
+        print("Entrada: ",entrada)
 
-    elif a in NONTERMINAL_DICT:
-        prod = PARSE_TABLE[NONTERMINAL_DICT[a]][TOKEN_DICT[x]]
-        if prod:
-            pilha.pop()
-            symbols = prod.split(" ")
-            if symbols != ["î"]:  # Produção vazia
-                pilha.extend(reversed(symbols))
-            print(f"Aplicada produção: {a} → {prod}")
-            print(f"Pilha: {pilha}")
+        pilha = ["$", starter]  # Exemplo de inicialização
+        x = entrada[0][0]  # Primeiro token da entrada
+        i = 0
+
+        while pilha:
+            a = pilha[-1]
+
+            if a == x:
+                if a == "$":
+                    break
+                pilha.pop()
+                print(f"Consumido Token: '{x}', Código: {TOKEN_DICT[x]}, Linha: {entrada[i][2]} da pilha.")
+                print(f"Pilha: {pilha}")
+                i += 1
+                x = entrada[i][0] if i < len(entrada) else "$"
+
+            elif a in NONTERMINAL_DICT:
+                prod = PARSE_TABLE[NONTERMINAL_DICT[a]][TOKEN_DICT[x]]
+                if prod:
+                    pilha.pop()
+                    symbols = prod.split(" ")
+                    if symbols != ["î"]:  # Produção vazia
+                        pilha.extend(reversed(symbols))
+                    print(f"Aplicada produção: {a} → {prod}")
+                    print(f"Pilha: {pilha}")
+                else:
+                    if handleError(a, pilha):
+                        continue
+                    break
+            else:
+                if handleError(a, pilha):
+                    continue
+                break
+
+
+        if x == "$" and pilha == ["$"]:
+            print("Análise sintática concluída com sucesso.")
         else:
-            print(f"Erro de sintaxe: não há produção para ({a}, {x})")
-            # print(f"Removendo {a} do topo da pilha")
-            # pilha.pop()
-            # print(f"Pilha: {pilha}")
-            # if handleError(a, errors):
-            #     continue
-            break
+            print("Erro ao final da análise.")
 
-    else:
-        print(f"Erro: símbolo inválido no topo da pilha: {a}")
-        # print(f"Removendo {a} do topo da pilha")
-        # pilha.pop()
-        # print(f"Pilha: {pilha}")
-        # if handleError(a,errors):
-        #     continue
-        break
-
-if x == "$" and pilha == ["$"]:
-    print("Análise sintática concluída com sucesso.")
-else:
-    print("Erro ao final da análise.")
-
-
+syntaxAnalizer("../AnalizadorLexico/codes/","PROGRAMA")
 
 # pilha = ["$"]  # Na verdade, é uma lista, utilizar apenas "append" e "pop";
 # pilha.extend(entrada)
