@@ -1,0 +1,29 @@
+program exemplo1 ;
+
+## Comentário de linha
+
+#*
+Comentário de bloco explicativo
+Constantes e variáveis
+*#
+
+const idadePadrao = 18;
+const valorMaximo = 100;
+
+var nome, sobrenome : string; idade, numero : integer; saldo : real;
+
+begin
+    print{"Escreva seu nome"};
+    read(nome);
+    print{"Escreva seu sobrenome"};
+    read(sobrenome);
+    print{"Escreva sua idade"};
+    read(idade);
+
+    print{"Nome completo: "};
+    print{nome, sobrenome};
+
+    print{"Idade informada: "};
+    print{idade};
+end
+.

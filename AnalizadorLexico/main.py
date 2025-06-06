@@ -175,7 +175,7 @@ def lexicalAnalyzer(filePath):
         # print(newTokens)
         # Output
         # for token in tokens:
-        #     print(f"Token: {token[0]:>15} - Código: {token[1]:2} - Linha: {token[2]:2}")
+        #     print(f"Token: {token[0]:>15} - Indigo: {token[1]:2} - Linha: {token[2]:2}")
 
         # Pegando apenas os tokens e depois invertendo a lista.
         # entrada=[]

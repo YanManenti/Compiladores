@@ -28,6 +28,7 @@ def syntaxAnalizer(folderPath, starter):
 
         while pilha:
             a = pilha[-1]
+            print(f'a {a} : {x}')
 
             if a == x:
                 if a == "$":
@@ -37,6 +38,24 @@ def syntaxAnalizer(folderPath, starter):
                 print(f"Pilha: {pilha}")
                 i += 1
                 x = entrada[i][0] if i < len(entrada) else "$"
+
+            elif x == '##':
+                print(f"Ignorando comentário de linha: {x} : {a}")
+                i += 1
+                x = entrada[i][0]
+                continue
+
+            elif x == '#*':
+                print(f"Início de comentário de bloco encontrado: {x} : {a}")
+                i += 1
+                x = entrada[i][0]
+
+            elif x == '*#':
+                print(f"Final de comentário de bloco encontrado {x} : {a}")
+                i += 1
+                x = entrada[i][0]
+
+                continue
 
             elif a in NONTERMINAL_DICT:
                 prod = PARSE_TABLE[NONTERMINAL_DICT[a]][TOKEN_DICT[x]]
@@ -55,7 +74,6 @@ def syntaxAnalizer(folderPath, starter):
                 if handleError(a, pilha):
                     continue
                 break
-
 
         if x == "$" and pilha == ["$"]:
             print("Análise sintática concluída com sucesso.")
