@@ -17,10 +17,10 @@ procedure calculaMedia(n1, n2, n3 : real) ;
 ;
 
 begin
-    nota1 := '8.5'
-    nota2 := '6.0'
-    nota3 := '7.5'
+    nota1 := '8.5';
+    nota2 := '6.0';
+    nota3 := '7.5';
 
-    calculaMedia(nota1, nota2, nota3)
+    calculaMedia(nota1, nota2, nota3);
 end
 .

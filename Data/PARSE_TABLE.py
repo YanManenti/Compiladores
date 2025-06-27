@@ -114,7 +114,7 @@ PARSE_TABLE[NONTERMINAL_DICT["EXPRESSAO"]][TOKEN_DICT["string"]] = "TERMO EXPR"
 #EXPR
 PARSE_TABLE[NONTERMINAL_DICT["EXPR"]][TOKEN_DICT["+"]] = "+ TERMO EXPR"
 PARSE_TABLE[NONTERMINAL_DICT["EXPR"]][TOKEN_DICT["-"]] = "- TERMO EXPR"
-for tk in [")", ",", "}", "=", "<", ">", "to", "do", "then", ";"]:
+for tk in [")", ",", "}", "=", "<", ">", "<=", ">=", "<>", "to", "do", "then", ";"]:
     PARSE_TABLE[NONTERMINAL_DICT["EXPR"]][TOKEN_DICT[tk]] = "î"
 
 #TERMO
@@ -127,7 +127,7 @@ for tk in ["+", "-", ")", ",", "}", "=", "<", ">", "to", "do", "then", ";"]:
 #TER
 PARSE_TABLE[NONTERMINAL_DICT["TER"]][TOKEN_DICT["*"]] = "* FATOR TER"
 PARSE_TABLE[NONTERMINAL_DICT["TER"]][TOKEN_DICT["/"]] = "/ FATOR TER"
-for tk in ["+", "-", ")", ",", "}", "=", "<", ">", "to", "do", "then", ";"]:
+for tk in ["+", "-", ")", ",", "}", "=", "<", ">", "<=", ">=", "<>", "to", "do", "then", ";"]:
     PARSE_TABLE[NONTERMINAL_DICT["TER"]][TOKEN_DICT[tk]] = "î"
 
 #FATOR
