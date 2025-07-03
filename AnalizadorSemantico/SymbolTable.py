@@ -5,6 +5,10 @@ class SymbolTable:
         self.stack = []  # lista de escopos, cada escopo é um dicionário
         self.current_level = -1
 
+    def reset(self):
+        self.stack = []
+        self.current_level = -1
+
     def enter_scope(self):
         self.stack.append({})
         self.current_level += 1
@@ -37,15 +41,15 @@ class SymbolTable:
         return None
 
     def verify_assignment(self, ident_token, expression_token):
-        ident_name, ident_line = ident_token[0], ident_token[2]
+        ident_name, ident_line, ident_lexema = ident_token[0], ident_token[2], ident_token[3]
         expr_value, expr_line = expression_token[0], expression_token[2]
 
-        ident_info = self.lookup(ident_name, ident_line)
+        ident_info = self.lookup(ident_lexema, ident_line)
         if not ident_info:
             return
 
         if ident_info["categoria"] == "constante":
-            print(f"[Erro Semântico] Atribuição não permitida a constante '{ident_name}'. Linha {ident_line}")
+            print(f"[Erro Semântico] Atribuição não permitida a constante '{ident_lexema}'. Linha {ident_line}")
             return
 
         ident_type = ident_info["tipo"]
@@ -66,7 +70,7 @@ class SymbolTable:
                 expr_type = expr_info["tipo"]
 
         if expr_type and not self.types_compatible(ident_type, expr_type):
-            print(f"[Erro Semântico] Tipos incompatíveis na atribuição: '{ident_name}' é {ident_type}, expressão é {expr_type}. Linha {ident_line}")
+            print(f"[Erro Semântico] Tipos incompatíveis na atribuição: '{ident_lexema}' é {ident_type}, expressão é {expr_type}. Linha {ident_line}")
 
     def types_compatible(self, tipo1, tipo2):
         if tipo1 == tipo2:

@@ -79,7 +79,7 @@ def tokenize(code):
                 # Trata token #* e *#
                 if value == '#*':
                     token_type = TOKEN_DICT.get(value)
-                    tokenList.append((value, token_type, lines))
+                    tokenList.append((value, token_type, lines, value))
 
                     end_comment = code.find('*#', match.end())
                     if end_comment == -1:
@@ -88,14 +88,14 @@ def tokenize(code):
                     comment_content = code[match.end():end_comment]
                     lines += comment_content.count('\n')
 
-                    tokenList.append(('*#', TOKEN_DICT['*#'], lines))
+                    tokenList.append(('*#', TOKEN_DICT['*#'], lines, '*#'))
                     position = end_comment + 2
                     continue
 
                 # Trata token ##
                 if value == '##':
                     token_type = TOKEN_DICT.get(value)
-                    tokenList.append((value, token_type, lines))
+                    tokenList.append((value, token_type, lines, value))
 
                     end_of_line = code.find('\n', match.end())
                     if end_of_line == -1:
@@ -122,7 +122,7 @@ def tokenize(code):
                 if token_type:
                     for key in TOKEN_DICT:
                         if TOKEN_DICT[key] == token_type:
-                            tokenList.append((key, token_type, lines))
+                            tokenList.append((key, token_type, lines, value))
                 break
         if not match:
             raise SyntaxError(f"Token desconhecido: {code[position]}")
