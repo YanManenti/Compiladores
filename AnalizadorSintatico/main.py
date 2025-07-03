@@ -6,10 +6,11 @@ from Data.PARSE_TABLE import PARSE_TABLE
 from AnalizadorLexico.main import lexicalAnalyzer
 
 
-def handleError(str,pilha):
+def handleError(str,pilha, x, linha):
     if str == "$":
         return False
     print(f"ERRO: SÍMBOLO INVÁLIDO NO TOPO DA PILHA: {str}")
+    print(f"[Erro Sintático] Esperado token '{str}', mas encontrado '{x}' na linha {linha}.")
     print(f"REMOVENDO {str} DO TOPO DA PILHA")
     pilha.pop()
     print(f"Pilha: {pilha}")
@@ -72,11 +73,11 @@ def syntaxAnalizer(folderPath, starter):
                     print(f"Aplicada produção: {a} → {prod}")
                     print(f"Pilha: {pilha}")
                 else:
-                    if handleError(a, pilha):
+                    if handleError(a, pilha, x, entrada[i][2]):
                         continue
                     break
             else:
-                if handleError(a, pilha):
+                if handleError(a, pilha, x, entrada[i][2]):
                     continue
                 break
 
