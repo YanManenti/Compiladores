@@ -33,6 +33,11 @@ def syntaxAnalizer(folderPath, starter):
             if a == x:
                 if a == "$":
                     break
+
+                if a == "ident" and x != "ident" and i > 0 and entrada[i - 1][0] == "program":
+                    print(f"[Erro Sintático] Esperado identificador após 'program'. Encontrado '{x}', linha {entrada[i][2]}")
+                    return
+
                 pilha.pop()
                 print(f"Consumido Token: '{x}', Código: {TOKEN_DICT[x]}, Linha: {entrada[i][2]} da pilha.")
                 print(f"Pilha: {pilha}")
