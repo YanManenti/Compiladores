@@ -1,0 +1,7 @@
+program teste;
+const pi = 3;
+var raio: real;
+begin
+  pi := 3;
+  raio := 5;
+end.

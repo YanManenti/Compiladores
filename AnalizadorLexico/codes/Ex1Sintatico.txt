@@ -7,7 +7,7 @@ Comentário de bloco explicativo
 Constantes e variáveis
 *#
 
-const idadePadrao = 18
+const idadePadrao = 18;
 const valorMaximo = 100;
 
 var nome, sobrenome : string; idade, numero : integer; saldo : real;

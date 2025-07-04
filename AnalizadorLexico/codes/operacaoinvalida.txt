@@ -1,0 +1,7 @@
+program teste;
+var
+  texto: string;
+  n: integer;
+begin
+  texto := 'abc' / 2;
+end.

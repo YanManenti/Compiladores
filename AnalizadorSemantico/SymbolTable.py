@@ -1,13 +1,31 @@
-# AnalisadorSemantico/SymbolTable.py
+class Expr:
+    pass
+
+class BinOp(Expr):
+    def __init__(self, left, op, right):
+        self.left = left     # Expr
+        self.op = op         # str, ex: '+', '-', '*', '/'
+        self.right = right   # Expr
+
+class Literal(Expr):
+    def __init__(self, value, type_):
+        self.value = value
+        self.type = type_
+
+class Ident(Expr):
+    def __init__(self, name):
+        self.name = name
 
 class SymbolTable:
     def __init__(self):
-        self.stack = []  # lista de escopos, cada escopo é um dicionário
+        self.stack = []
         self.current_level = -1
+        self.has_error = False
 
     def reset(self):
         self.stack = []
         self.current_level = -1
+        self.has_error = False
 
     def enter_scope(self):
         self.stack.append({})
@@ -24,6 +42,7 @@ class SymbolTable:
         current_scope = self.stack[-1] if self.stack else {}
         if name in current_scope:
             print(f"[Erro Semântico] Identificador '{name}' já declarado neste escopo. Linha {line}")
+            self.has_error = True
             return False
         current_scope[name] = {
             "categoria": category,
@@ -37,40 +56,34 @@ class SymbolTable:
         for scope in reversed(self.stack):
             if name in scope:
                 return scope[name]
-        print(f"[Erro Semântico] Identificador '{name}' não declarado. Linha {line}")
+        if line is not None:
+            print(f"[Erro Semântico] Identificador '{name}' não declarado. Linha {line}")
+            self.has_error = True
         return None
 
-    def verify_assignment(self, ident_token, expression_token):
-        ident_name, ident_line, ident_lexema = ident_token[0], ident_token[2], ident_token[3]
-        expr_value, expr_line = expression_token[0], expression_token[2]
-
-        ident_info = self.lookup(ident_lexema, ident_line)
+    def verify_assignment(self, ident_name, expr, line):
+        print(f"Verificando atribuição para {ident_name} na linha {line}")
+        ident_info = self.lookup(ident_name, line)
         if not ident_info:
             return
 
-        if ident_info["categoria"] == "constante":
-            print(f"[Erro Semântico] Atribuição não permitida a constante '{ident_lexema}'. Linha {ident_line}")
+        if ident_info['categoria'] == 'constante':
+            print(f"[Erro Semântico] Atribuição não permitida a constante '{ident_name}'. Linha {line}")
+            self.has_error = True
             return
 
-        ident_type = ident_info["tipo"]
+        expr_type = self.infer_expr_type(expr)
+        if expr_type is None:
+            # self.has_error = True
+            return
 
-        # Inferir tipo do lado direito (pode ser literal ou outro ident)
-        expr_type = None
-        if expr_value.isdigit():
-            expr_type = "inteiro"
-        elif expr_value.replace('.', '', 1).isdigit():
-            expr_type = "real"
-        elif expr_value.startswith("'") and expr_value.endswith("'"):
-            expr_type = "string"
-        elif expr_value.startswith('"') and expr_value.endswith('"'):
-            expr_type = "string"
-        else:
-            expr_info = self.lookup(expr_value, expr_line)
-            if expr_info:
-                expr_type = expr_info["tipo"]
+        ident_type = ident_info['tipo']
+        if self.types_compatible(ident_type, expr_type):
+            return
 
-        if expr_type and not self.types_compatible(ident_type, expr_type):
-            print(f"[Erro Semântico] Tipos incompatíveis na atribuição: '{ident_lexema}' é {ident_type}, expressão é {expr_type}. Linha {ident_line}")
+        print(
+            f"[Erro Semântico] Tipos incompatíveis na atribuição: '{ident_name}' é {ident_type}, expressão é {expr_type}. Linha {line}")
+        self.has_error = True
 
     def types_compatible(self, tipo1, tipo2):
         if tipo1 == tipo2:
@@ -78,6 +91,43 @@ class SymbolTable:
         if tipo1 == "real" and tipo2 == "inteiro":
             return True
         return False
+
+    def infer_expr_type(self, expr):
+        if isinstance(expr, Literal):
+            return expr.type
+
+        if isinstance(expr, Ident):
+            info = self.lookup(expr.name, line=None)
+            if info:
+                return info['tipo']
+            else:
+                return None
+
+        if isinstance(expr, BinOp):
+            left_type = self.infer_expr_type(expr.left)
+            right_type = self.infer_expr_type(expr.right)
+
+            if left_type is None or right_type is None:
+                self.has_error = True
+                return None
+
+            # TIPOS VÁLIDOS PARA OPERAÇÕES ARITMÉTICAS (exemplo)
+            valid_types = {'inteiro', 'real'}
+
+            if left_type not in valid_types or right_type not in valid_types:
+                print(f"[Erro Semântico] Operação '{expr.op}' não suportada para tipos {left_type} e {right_type}")
+                self.has_error = True
+                return None
+
+            if left_type == right_type:
+                return left_type
+
+            if (left_type == 'real' and right_type == 'inteiro') or (left_type == 'inteiro' and right_type == 'real'):
+                return 'real'
+
+            print(f"[Erro Semântico] Tipos incompatíveis na operação '{expr.op}': {left_type} e {right_type}")
+            self.has_error = True
+            return None
 
     def print_table(self):
         print("\n===== Tabela de Símbolos =====")

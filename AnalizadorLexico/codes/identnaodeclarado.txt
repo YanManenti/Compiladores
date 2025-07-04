@@ -1,0 +1,7 @@
+program teste;
+var
+  raio: real;
+begin
+  area := 10;
+  raio := 5;
+end.

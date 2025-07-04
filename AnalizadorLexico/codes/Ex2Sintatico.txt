@@ -5,21 +5,20 @@ var nota1, nota2, nota3, media : real;
 procedure calculaMedia(n1, n2, n3 : real) ;
     begin
         media := (n1 + n2 + n3) / 3;
-        if media >= '7.00' then
+        if media >= 7.00 then
             begin
                 print{"Aprovado!"};
             end
         else
             begin
                 print{"Reprovado!"};
-            end
-    end
-;
+            end;
+    end;
 
 begin
-    nota1 := '8.5';
-    nota2 := '6.0';
-    nota3 := '7.5';
+    nota1 := 8.5;
+    nota2 := 6.0;
+    nota3 := 7.5;
 
     calculaMedia(nota1, nota2, nota3);
 end
